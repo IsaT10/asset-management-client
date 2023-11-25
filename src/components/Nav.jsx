@@ -1,13 +1,17 @@
 import { Link, NavLink } from 'react-router-dom';
+import useHR from '../Hooks/useHR';
+import useAuth from '../Hooks/useAuth';
 // import useAuth from '../hooks/useAuth';
 
 const Nav = () => {
-  // const { logOut, user } = useAuth();
+  const { isHR } = useHR();
+  const { user, logOut } = useAuth();
+  console.log(isHR);
 
-  // const handleLogout = () => {
-  //   logOut();
-  //   // toast.success('Successfully logged out');
-  // };
+  const handleLogout = () => {
+    logOut();
+    // toast.success('Successfully logged out');
+  };
   return (
     <div className="px-2 lg:px-0 py-2 text-stone-200">
       <div className="navbar  max-w-7xl mx-auto flex justify-between">
@@ -75,61 +79,186 @@ const Nav = () => {
           </div>
         </div>
         <div className=" hidden md:flex ">
-          <ul className="flex gap-4 items-center">
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? 'pending'
-                    : isActive
-                    ? 'border-l-8 border-primary-color  pl-1  font-semibold'
-                    : 'font-semibold  hover:text-primary-color duration-100  '
-                }
-              >
-                Home
-              </NavLink>
-            </li>
+          {!isHR.role ? (
+            <ul className="flex gap-4 items-center">
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color  pl-1  font-semibold'
+                      : 'font-semibold  hover:text-primary-color duration-100  '
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
 
-            <li>
-              <NavLink
-                to="/addblog"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? 'pending'
-                    : isActive
-                    ? 'border-l-8 border-primary-color   pl-1  font-semibold'
-                    : 'font-semibold hover:text-primary-color duration-100 '
-                }
-              >
-                Join as employee
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/featuredblogs"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? 'pending'
-                    : isActive
-                    ? 'border-l-8 border-primary-color   pl-1  font-semibold'
-                    : 'font-semibold hover:text-primary-color duration-100 '
-                }
-              >
-                Join as HR/Admin
-              </NavLink>
-            </li>
+              <li>
+                <NavLink
+                  to="/addblog"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color   pl-1  font-semibold'
+                      : 'font-semibold hover:text-primary-color duration-100 '
+                  }
+                >
+                  Join as employee
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/featuredblogs"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color   pl-1  font-semibold'
+                      : 'font-semibold hover:text-primary-color duration-100 '
+                  }
+                >
+                  Join as HR/Admin
+                </NavLink>
+              </li>
 
-            <li>
-              <Link
-                to="/login"
-                className="bg-transparent border-2 text-sm md:text-base border-stone-900 rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5  font-semibold"
-              >
-                Login
-              </Link>
-            </li>
+              <li>
+                <Link
+                  to="/login"
+                  className="bg-transparent border-2 text-sm md:text-base border-stone-900 rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5  font-semibold"
+                >
+                  Login
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className="flex gap-4 items-center">
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color  pl-1  '
+                      : '  hover:text-primary-color duration-100  '
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
 
-            {/* {user?.email ? (
+              <li>
+                <NavLink
+                  to="/addblog"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color   pl-1  '
+                      : ' hover:text-primary-color duration-100 '
+                  }
+                >
+                  My assets
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/featuredblogs"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color   pl-1  '
+                      : ' hover:text-primary-color duration-100 '
+                  }
+                >
+                  My Team
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color  pl-1  '
+                      : '  hover:text-primary-color duration-100  '
+                  }
+                >
+                  Request for an Asset
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/custom-request"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color  pl-1  '
+                      : '  hover:text-primary-color duration-100  '
+                  }
+                >
+                  Make a Custom Request
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/employee-home"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color  pl-1  '
+                      : '  hover:text-primary-color duration-100  '
+                  }
+                >
+                  Employee Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? 'pending'
+                      : isActive
+                      ? 'text-blue border-primary-color  pl-1  '
+                      : '  hover:text-primary-color duration-100  '
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
+
+              <p>{user.displayName}</p>
+
+              {user?.photoURL ? (
+                <div className="avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={user.photoURL} alt="" />
+                  </div>
+                </div>
+              ) : (
+                <div className="w-10 rounded-full bg-transparent">
+                  {/* <img src={avatar} alt="asdsa" /> */}
+                </div>
+              )}
+
+              <button
+                className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+
+              {/* {user?.email ? (
               <>
                 <button
                   className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
@@ -159,7 +288,7 @@ const Nav = () => {
                       isPending
                         ? 'pending'
                         : isActive
-                        ? ' border-l-8 border-primary-color  pl-1  font-semibold'
+                        ? ' text-blue border-primary-color  pl-1  font-semibold'
                         : 'font-semibold  hover:text-primary-color duration-100 '
                     }
                   >
@@ -174,7 +303,8 @@ const Nav = () => {
                 </Link>
               </>
             )} */}
-          </ul>
+            </ul>
+          )}
         </div>
       </div>
     </div>

@@ -1,0 +1,16 @@
+[class^='number-slide'],
+[class*=' number-slide'] {
+  height: 80vh;
+}
+
+.number-slide1 {
+  background: linear-gradient(to right, #000000, #00000049),
+    url('../../../../assets/images/banner1.jpg');
+  background-size: cover;
+}
+
+.number-slide2 {
+  background: linear-gradient(to right, #000000, #00000049),
+    url('../../../../assets/images/banner2.jpg');
+  background-size: cover;
+}

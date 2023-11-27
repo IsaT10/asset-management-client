@@ -14,7 +14,9 @@ const RequestModal = ({ setShowModal, list: { productName, type } }) => {
       type,
       requestedDate: date,
       email: user?.email,
+      name: user?.displayName,
       additionalInfo: note,
+      status: 'Pending',
     };
 
     const { data } = await axios.post('/requestForAsset', requestedData);

@@ -2,7 +2,7 @@ import { date } from '../../utils/date';
 
 const SingleAsset = ({ list }) => {
   //   const dataObj = new Date(list.date);
-  const formettedDate = date(list);
+  const { formattedDate } = date(list?.date);
 
   //   const year = dataObj.getFullYear();
   //   const month = String(dataObj.getMonth() + 1).padStart(2, '0');
@@ -25,7 +25,7 @@ const SingleAsset = ({ list }) => {
       <td className=" font-josep font-semibold text-center text-stone-300  w-52">
         {list?.quantity > 0 ? list.quantity : 'Out of stock'}
       </td>
-      <td className="text-stone-600 font-semibold w-40">{formettedDate}</td>
+      <td className="text-stone-600 font-semibold w-40">{formattedDate}</td>
       <td className="w-44 text-center ">
         <button className="font-semibold text-sm uppercase px-3 py-1 bg-yellow-600 text-yellow-100 rounded-sm">
           Update

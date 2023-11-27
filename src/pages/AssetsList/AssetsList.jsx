@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAllAssets from '../../Hooks/useAllAssets';
-import useRequestData from '../../Hooks/useRequestData';
+import useCustomRequestData from '../../Hooks/useCustomRequestData';
 import Title from '../../components/Title';
 import SingleAsset from './SingleAsset';
 
@@ -9,7 +9,7 @@ const AssetsList = () => {
   const [assetType, setAssetType] = useState('all');
   const [search, setSearch] = useState('');
   const [asc, setAsc] = useState(true);
-  const { customRequestData } = useRequestData();
+  const { customRequestData } = useCustomRequestData();
 
   const { allAssets } = useAllAssets(asc, stockStatus, assetType, search);
   console.log(allAssets);

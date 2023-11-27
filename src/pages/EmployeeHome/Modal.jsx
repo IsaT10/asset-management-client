@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAxios from '../../Hooks/useAxios';
-import useRequestData from '../../Hooks/useRequestData';
+import useCustomRequestData from '../../Hooks/useCustomRequestData';
 
 const Modal = ({
   setShowModal,
@@ -16,7 +16,7 @@ const Modal = ({
   _id,
 }) => {
   const [editable, setEditable] = useState(false);
-  const { refetch } = useRequestData();
+  const { refetch } = useCustomRequestData();
   const axios = useAxios();
   const handleSubmit = async (e) => {
     e.preventDefault();

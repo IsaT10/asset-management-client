@@ -11,6 +11,8 @@ import HrHome from '../pages/HrHome/HrHome';
 import AddAsset from '../pages/AddAsset/AddAsset';
 import AssetsList from '../pages/AssetsList/AssetsList';
 import RequestForAsset from '../pages/RequestForAsset/RequestForAsset';
+import AllRequest from '../pages/AllRequest/AllRequest';
+import AllCustomRequest from '../pages/AllCustomRequest/AllCustomRequest';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,8 @@ const router = createBrowserRouter([
       { path: '/HRhome', element: <HrHome /> },
       { path: '/addAnAsset', element: <AddAsset /> },
       { path: '/assetsList', element: <AssetsList /> },
+      { path: '/allRequest', element: <AllRequest /> },
+      { path: '/allCustomRequest', element: <AllCustomRequest /> },
     ],
   },
   {

@@ -1,8 +1,8 @@
-import useRequestData from '../../Hooks/useRequestData';
+import useCustomRequestData from '../../Hooks/useCustomRequestData';
 import Title from '../../components/Title';
 
 const HrHome = () => {
-  const {} = useRequestData();
+  const {} = useCustomRequestData();
   return (
     <div className="min-h-screen">
       <Title title="Pending Request" />

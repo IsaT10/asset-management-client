@@ -207,7 +207,7 @@ const Nav = () => {
                   </li>
                   <li>
                     <NavLink
-                      to="/custom-request-list"
+                      to="/allCustomRequest"
                       className={({ isActive, isPending }) =>
                         isPending
                           ? 'pending'

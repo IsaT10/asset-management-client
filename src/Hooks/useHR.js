@@ -5,7 +5,7 @@ import useAxios from './useAxios';
 const useHR = () => {
   const { user } = useAuth();
   const axios = useAxios();
-  const { data: isHR = {} } = useQuery({
+  const { data: userData = {} } = useQuery({
     queryKey: ['HR', user?.email],
     queryFn: async () => {
       const res = await axios.get(`/users/HR/${user.email}`);
@@ -14,7 +14,7 @@ const useHR = () => {
     },
   });
 
-  return { isHR };
+  return { userData };
 };
 
 export default useHR;

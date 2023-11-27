@@ -1,21 +1,11 @@
 import { FaEdit, FaRegTrashAlt } from 'react-icons/fa';
 import Title from '../../components/Title';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import useAxios from '../../Hooks/useAxios';
 import SingleItem from './SingleItem';
+import useRequestData from '../../Hooks/useRequestData';
 
 const EmployeeHome = () => {
-  const axios = useAxios();
-
-  const { data: customRequestData = [] } = useQuery({
-    queryKey: ['customRequest'],
-    queryFn: async () => {
-      const res = await axios.get('/custom-request');
-      //   console.log(res?.data);
-      return res.data;
-    },
-  });
+  const { customRequestData } = useRequestData();
 
   const pendingRequest = customRequestData.filter(
     (item) => item.status === 'pending'

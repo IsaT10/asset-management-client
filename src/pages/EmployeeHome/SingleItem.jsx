@@ -1,4 +1,9 @@
+import { useState } from 'react';
+import Modal from './Modal';
+
 const SingleItem = ({ req }) => {
+  const [showModal, setShowModal] = useState(false);
+
   const {
     assetName,
     email,
@@ -23,15 +28,18 @@ const SingleItem = ({ req }) => {
         <div className="flex  flex-col justify-center items-center flex-1">
           <div className="flex justify-between items-center w-full pb-2 space-x-2">
             <div className="space-y-2 flex flex-col items-start justify-between">
-              <h3 className="sm:text-lg font-semibold leading-snug text-stone-300">
-                {assetName}
-              </h3>
               <p className=" bg-blue text-xs px-1.5 sm:px-2 py-0.5 uppercase font-semibold sm:font-bold text-stone-200 rounded-full">
                 {type}
               </p>
+              <h3 className="sm:text-lg font-semibold leading-snug text-stone-300">
+                {assetName}
+              </h3>
+              <p className="sm:text-lg font-semibold leading-snug text-stone-400">
+                Price : ${price}
+              </p>
             </div>
 
-            <div className="flex gap-14">
+            <div className="flex items-center gap-14">
               <p
                 className={`   py-1 uppercase font-semibold ${
                   status === 'pending'
@@ -41,11 +49,33 @@ const SingleItem = ({ req }) => {
               >
                 {status}
               </p>
-              <button>Details</button>
+              <button
+                onClick={() => setShowModal(true)}
+                className="bg-darkBlue px-4 py-2 text-white rounded-sm font-semibold"
+              >
+                Details
+              </button>
             </div>
           </div>
         </div>
       </div>
+      {/* <dialog id="_id" className="modal">
+       
+      </dialog> */}
+
+      {showModal ? (
+        <Modal
+          setShowModal={setShowModal}
+          assetName={assetName}
+          price={price}
+          type={type}
+          whyNeedThis={whyNeedThis}
+          info={info}
+          imageUrl={imageUrl}
+          status={status}
+          _id={_id}
+        />
+      ) : null}
     </div>
   );
 };

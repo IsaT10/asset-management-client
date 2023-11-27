@@ -1,12 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import useHR from '../Hooks/useHR';
 import useAuth from '../Hooks/useAuth';
+// import logo from '../assets/images/logo1.png';
 // import useAuth from '../hooks/useAuth';
 
 const Nav = () => {
-  const { isHR } = useHR();
+  const { userData } = useHR();
   const { user, logOut } = useAuth();
-  console.log(isHR);
+  console.log(userData);
 
   const handleLogout = () => {
     logOut();
@@ -18,9 +19,17 @@ const Nav = () => {
         <div className=" flex w-full md:w-44 justify-between items-center">
           <div className="flex  gap-2 md:gap-2 lg:gap-5 items-center">
             <Link to="/">
-              <h1 className="text-lg md:text-xl lg:text-2xl text-primary-color font-bold ">
-                AssetMaster
-              </h1>
+              {userData?.role === 'HR' ? (
+                <img
+                  className="w-20 object-cover"
+                  src={userData?.companyLogo}
+                  alt=""
+                />
+              ) : (
+                <h1 className="text-lg md:text-xl lg:text-2xl text-primary-color font-bold ">
+                  AssetMaster
+                </h1>
+              )}
             </Link>
           </div>
 
@@ -79,7 +88,7 @@ const Nav = () => {
           </div>
         </div>
         <div className=" hidden md:flex ">
-          {!isHR.role ? (
+          {!userData?.role ? (
             <ul className="flex gap-4 items-center">
               <li>
                 <NavLink
@@ -112,7 +121,7 @@ const Nav = () => {
               </li>
               <li>
                 <NavLink
-                  to="/featuredblogs"
+                  to="/signupAsHR"
                   className={({ isActive, isPending }) =>
                     isPending
                       ? 'pending'
@@ -135,130 +144,146 @@ const Nav = () => {
               </li>
             </ul>
           ) : (
-            <ul className="flex gap-4 items-center">
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color  pl-1  '
-                      : '  hover:text-primary-color duration-100  '
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
+            <>
+              {userData?.role === 'HR' ? (
+                <ul className="flex gap-4 items-center">
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Home
+                    </NavLink>
+                  </li>
 
-              <li>
-                <NavLink
-                  to="/addblog"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color   pl-1  '
-                      : ' hover:text-primary-color duration-100 '
-                  }
-                >
-                  My assets
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/featuredblogs"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color   pl-1  '
-                      : ' hover:text-primary-color duration-100 '
-                  }
-                >
-                  My Team
-                </NavLink>
-              </li>
+                  <li>
+                    <NavLink
+                      to="/assetsList"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color   pl-1  '
+                          : ' hover:text-primary-color duration-100 '
+                      }
+                    >
+                      Asset List
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/addAnAsset"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color   pl-1  '
+                          : ' hover:text-primary-color duration-100 '
+                      }
+                    >
+                      Add Asset
+                    </NavLink>
+                  </li>
 
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color  pl-1  '
-                      : '  hover:text-primary-color duration-100  '
-                  }
-                >
-                  Request for an Asset
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/custom-request"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color  pl-1  '
-                      : '  hover:text-primary-color duration-100  '
-                  }
-                >
-                  Make a Custom Request
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/employee-home"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color  pl-1  '
-                      : '  hover:text-primary-color duration-100  '
-                  }
-                >
-                  Employee Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? 'pending'
-                      : isActive
-                      ? 'text-blue border-primary-color  pl-1  '
-                      : '  hover:text-primary-color duration-100  '
-                  }
-                >
-                  Profile
-                </NavLink>
-              </li>
+                  <li>
+                    <NavLink
+                      to="/allRequest"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      All Requests
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/custom-request-list"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Custom Requests List
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/addEmployee"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Add an Employee
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/HRhome"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      HR Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Profile
+                    </NavLink>
+                  </li>
 
-              <p>{user.displayName}</p>
+                  {/* <p>{user.displayName}</p> */}
 
-              {user?.photoURL ? (
-                <div className="avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={user.photoURL} alt="" />
-                  </div>
-                </div>
-              ) : (
-                <div className="w-10 rounded-full bg-transparent">
-                  {/* <img src={avatar} alt="asdsa" /> */}
-                </div>
-              )}
+                  {user?.photoURL ? (
+                    <div className="avatar">
+                      <div className="w-10 rounded-full">
+                        <img src={user.photoURL} alt="" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-10 rounded-full bg-transparent">
+                      {/* <img src={avatar} alt="asdsa" /> */}
+                    </div>
+                  )}
 
-              <button
-                className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
+                  <button
+                    className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
 
-              {/* {user?.email ? (
+                  {/* {user?.email ? (
               <>
                 <button
                   className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
@@ -303,7 +328,179 @@ const Nav = () => {
                 </Link>
               </>
             )} */}
-            </ul>
+                </ul>
+              ) : (
+                <ul className="flex gap-4 items-center">
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      to="/assets"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color   pl-1  '
+                          : ' hover:text-primary-color duration-100 '
+                      }
+                    >
+                      My assets
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/featuredblogs"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color   pl-1  '
+                          : ' hover:text-primary-color duration-100 '
+                      }
+                    >
+                      My Team
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      to="/requestForAsset"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Request for an Asset
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/custom-request"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Make a Custom Request
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/employee-home"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Employee Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      Profile
+                    </NavLink>
+                  </li>
+
+                  <p>{user.displayName}</p>
+
+                  {user?.photoURL ? (
+                    <div className="avatar">
+                      <div className="w-10 rounded-full">
+                        <img src={user.photoURL} alt="" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="w-10 rounded-full bg-transparent">
+                      {/* <img src={avatar} alt="asdsa" /> */}
+                    </div>
+                  )}
+
+                  <button
+                    className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+
+                  {/* {user?.email ? (
+              <>
+                <button
+                  className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+
+                {user?.photoURL ? (
+                  <div className="avatar">
+                    <div className="w-10 rounded-full">
+                      <img src={user.photoURL} alt="" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="w-10 rounded-full bg-transparent">
+                    <img src={avatar} alt="asdsa" />
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink
+                    to="/signup"
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? 'pending'
+                        : isActive
+                        ? ' text-blue border-primary-color  pl-1  font-semibold'
+                        : 'font-semibold  hover:text-primary-color duration-100 '
+                    }
+                  >
+                    Sign up
+                  </NavLink>
+                </li>
+                <Link
+                  to="/login"
+                  className="bg-transparent border-2 text-sm md:text-base border-stone-900 rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5  font-semibold"
+                >
+                  Login
+                </Link>
+              </>
+            )} */}
+                </ul>
+              )}
+            </>
           )}
         </div>
       </div>

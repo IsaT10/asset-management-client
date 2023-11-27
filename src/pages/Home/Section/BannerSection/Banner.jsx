@@ -61,9 +61,11 @@ const Banner = () => {
               <br />
               Success
             </h2>
-            <button className="bg-darkBlue font-semibold hover:bg-blue duration-150 text-white text-base px-4 py-2 mt-6 rounded-sm uppercase">
-              Join As HR
-            </button>
+            <Link to="/signupAsHR">
+              <button className="bg-darkBlue font-semibold hover:bg-blue duration-150 text-white text-base px-4 py-2 mt-6 rounded-sm uppercase">
+                Join As HR
+              </button>
+            </Link>
           </div>
         </div>
       </div>

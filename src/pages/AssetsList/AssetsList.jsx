@@ -9,7 +9,6 @@ const AssetsList = () => {
   const [assetType, setAssetType] = useState('all');
   const [search, setSearch] = useState('');
   const [asc, setAsc] = useState(true);
-  const { customRequestData } = useCustomRequestData();
 
   const { allAssets } = useAllAssets(asc, stockStatus, assetType, search);
   console.log(allAssets);

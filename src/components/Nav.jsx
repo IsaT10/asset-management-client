@@ -147,7 +147,7 @@ const Nav = () => {
             <>
               {userData?.role === 'HR' ? (
                 <ul className="flex gap-4 items-center">
-                  <li>
+                  {/* <li>
                     <NavLink
                       to="/"
                       className={({ isActive, isPending }) =>
@@ -160,7 +160,7 @@ const Nav = () => {
                     >
                       Home
                     </NavLink>
-                  </li>
+                  </li> */}
 
                   <li>
                     <NavLink
@@ -235,6 +235,20 @@ const Nav = () => {
                   </li>
                   <li>
                     <NavLink
+                      to="/myEmployee"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-primary-color duration-100  '
+                      }
+                    >
+                      My Employee
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
                       to="/HRhome"
                       className={({ isActive, isPending }) =>
                         isPending
@@ -249,7 +263,7 @@ const Nav = () => {
                   </li>
                   <li>
                     <NavLink
-                      to="/"
+                      to="/profile"
                       className={({ isActive, isPending }) =>
                         isPending
                           ? 'pending'

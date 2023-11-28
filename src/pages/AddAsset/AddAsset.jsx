@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import Title from '../../components/Title';
 import useAxios from '../../Hooks/useAxios';
+import useAuth from '../../Hooks/useAuth';
 
 const AddAsset = () => {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ const AddAsset = () => {
       type: data.type,
       quantity: Number(data.quantity),
       date,
+      hrEmail: user?.email,
     };
 
     const res = await axios.post('/allAssets', productsData);

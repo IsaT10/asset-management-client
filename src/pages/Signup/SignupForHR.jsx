@@ -57,6 +57,7 @@ const SignupForHR = () => {
             email: data.email,
             role: 'HR',
             image: profileImageUrl,
+            package: data.package,
             companyLogo: imageUrl,
             companyName: data.companyName,
           };

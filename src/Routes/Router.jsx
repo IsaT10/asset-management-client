@@ -13,6 +13,9 @@ import AssetsList from '../pages/AssetsList/AssetsList';
 import RequestForAsset from '../pages/RequestForAsset/RequestForAsset';
 import AllRequest from '../pages/AllRequest/AllRequest';
 import AllCustomRequest from '../pages/AllCustomRequest/AllCustomRequest';
+import EmployeeList from '../pages/EmployeeList/EmployeeList';
+import Profile from '../pages/Shared/Profile';
+import AddAnEmployee from '../pages/AddAnEmployee/AddAnEmployee';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,7 @@ const router = createBrowserRouter([
       { path: '/employee-home', element: <EmployeeHome /> },
       { path: '/requestForAsset', element: <RequestForAsset /> },
 
+      { path: '/profile', element: <Profile /> },
       //HR
       { path: '/assets', element: <MyAssets /> },
       { path: '/HRhome', element: <HrHome /> },
@@ -31,6 +35,8 @@ const router = createBrowserRouter([
       { path: '/assetsList', element: <AssetsList /> },
       { path: '/allRequest', element: <AllRequest /> },
       { path: '/allCustomRequest', element: <AllCustomRequest /> },
+      { path: '/addEmployee', element: <AddAnEmployee /> },
+      { path: '/myEmployee', element: <EmployeeList /> },
     ],
   },
   {

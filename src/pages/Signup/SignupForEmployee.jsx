@@ -46,6 +46,7 @@ const SignupForEmployee = () => {
             email: data.email,
             role: 'employee',
             image: imageUrl,
+            companyName: '',
           };
           axios.post('/users', userInfo).then((res) => {
             if (res.data.acknowledged) {

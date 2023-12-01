@@ -42,9 +42,11 @@ const SingleItem = ({ req }) => {
             <div className="flex items-center gap-14">
               <p
                 className={`   py-1 uppercase font-semibold ${
-                  status === 'pending'
-                    ? 'bg-orange-600 text-orange-100 px-3.5'
-                    : 'bg-green-600 text-green-100 px-2'
+                  status === 'Pending'
+                    ? 'font-semibold uppercase text-xs text-orange-500'
+                    : status === 'Approved'
+                    ? 'font-semibold uppercase text-xs text-green-500'
+                    : 'font-semibold uppercase text-xs text-red-600'
                 } rounded-sm`}
               >
                 {status}

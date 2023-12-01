@@ -1,141 +1,133 @@
+import { useNavigate } from 'react-router-dom';
+import useAxios from '../Hooks/useAxios';
+import useHR from '../Hooks/useHR';
+import useAuth from '../Hooks/useAuth';
+
 const Packages = () => {
+  const navigate = useNavigate();
+  const axios = useAxios();
+  const { userData } = useHR();
+  const { user } = useAuth();
+
+  const handlePackage = async (pack) => {
+    const res = await axios.patch(`/users/${userData._id}`, {
+      package: pack,
+    });
+
+    console.log(res.data);
+    navigate('/payment');
+  };
+
+  const handleStarter = () => {
+    handlePackage('5 Members for $5');
+  };
+  const handleValuePlan = () => {
+    handlePackage('10 Members for $8');
+  };
+  const handlePopular = () => {
+    handlePackage('20 Members for $15');
+  };
   return (
-    <div class="min-h-screen flex justify-center items-center">
-      <div class="">
-        <div class="text-center font-semibold">
-          <h1 class="text-5xl">
-            <span class="text-blue-700 tracking-wide">Flexible </span>
-            <span>Plans</span>
-          </h1>
-          <p class="pt-6 text-xl text-gray-400 font-normal w-full px-8 md:w-full">
-            Choose a plan that works best for you and
-            <br /> your team.
-          </p>
+    <div class="container m-auto min-h-screen flex flex-col items-center justify-center max-w-7xl mx-auto px-4 lg:px-2">
+      <div class="flex flex-wrap items-center justify-center w-full text-center">
+        <div class="w-full md:w-1/2 lg:w-1/3 p-4 lg:order-1">
+          <div class="flex flex-col rounded pb-5 border-2 border-blue-700 bg-blue-700">
+            <div class="py-5 text-blue-700 bg-stone-200">
+              <h3>Starter Pack</h3>
+              <p class="text-5xl font-bold">$5</p>
+            </div>
+            <div class="p-5 flex flex-col gap-3 h-[100px] justify-center items-center  bg-blue-700 text-white rounded-b">
+              <p className=" text-2xl tracking-wides font-semibold">
+                5 members
+              </p>
+            </div>
+            <div className="text-center">
+              {user ? (
+                <button
+                  onClick={handleStarter}
+                  class="px-5 py-2  uppercase rounded bg-white text-stone-950  text-sm font-semibold"
+                >
+                  Buy
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate('/signupAsHR')}
+                  class="px-5 py-2  uppercase rounded bg-white text-stone-950  text-sm font-semibold"
+                >
+                  Buy
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-        <div class="pt-24 flex flex-row">
-          <div class="w-96 p-8 bg-white text-center rounded-3xl pr-16 shadow-xl">
-            <h1 class="text-black font-semibold text-2xl">Basic</h1>
-            <p class="pt-2 tracking-wide">
-              <span class="text-gray-400 align-top">$ </span>
-              <span class="text-3xl font-semibold">10</span>
-              <span class="text-gray-400 font-medium">/ user</span>
-            </p>
-            <hr class="mt-4 border-1" />
-            <div class="pt-8">
-              <p class="font-semibold text-gray-400 text-left">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  Get started with <span class="text-black">messaging</span>
-                </span>
-              </p>
-              <p class="font-semibold text-gray-400 text-left pt-5">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  Flexible <span class="text-black">team meetings</span>
-                </span>
-              </p>
-              <p class="font-semibold text-gray-400 text-left pt-5">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  <span class="text-black">5 TB</span> cloud storage
-                </span>
-              </p>
 
-              <a href="#" class="">
-                <p class="w-full py-4 bg-blue-600 mt-8 rounded-xl text-stone-700">
-                  <span class="font-medium">Choose Plan</span>
-                  <span class="pl-2 material-icons align-middle text-sm">
-                    east
-                  </span>
-                </p>
-              </a>
+        <div class="w-full lg:order-2 md:w-1/2 lg:w-1/3 rounded-md p-4 mx-4 lg:mx-0 bg-darkBlue">
+          <div class="flex flex-col rounded  ">
+            <div class="py-5 bg-blue-700 text-white rounded-t">
+              <h2 class="uppercase text-yellow-300 font-extrabold">
+                Most Popular
+              </h2>
+              <h3>Premium Bundle</h3>
+              <p class="text-5xl font-bold">$15</p>
+            </div>
+            <div class="p-5 flex flex-col gap-3 h-[70px] lg:h-[130px] justify-center items-center  bg-blue-700 text-white rounded-b">
+              <p className=" text-2xl tracking-wides font-semibold">
+                20 members
+              </p>
+            </div>
+            <div className="text-center">
+              {user ? (
+                <button
+                  onClick={handlePopular}
+                  class="px-5 py-2  uppercase rounded bg-white text-stone-950  text-sm font-semibold"
+                >
+                  Buy
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate('/signupAsHR')}
+                  class="px-5 py-2  uppercase rounded bg-white text-stone-950  text-sm font-semibold"
+                >
+                  Buy
+                </button>
+              )}
             </div>
           </div>
+        </div>
 
-          <div class="w-80 p-8 bg-gray-900 text-center rounded-3xl text-white border-4 shadow-xl border-white transform scale-125">
-            <h1 class="text-white font-semibold text-2xl">Startup</h1>
-            <p class="pt-2 tracking-wide">
-              <span class="text-gray-400 align-top">$ </span>
-              <span class="text-3xl font-semibold">24</span>
-              <span class="text-gray-400 font-medium">/ user</span>
-            </p>
-            <hr class="mt-4 border-1 border-gray-600" />
-            <div class="pt-8">
-              <p class="font-semibold text-gray-400 text-left">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  All features in <span class="text-white">Basic</span>
-                </span>
-              </p>
-              <p class="font-semibold text-gray-400 text-left pt-5">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  Flexible <span class="text-white">call scheduling</span>
-                </span>
-              </p>
-              <p class="font-semibold text-gray-400 text-left pt-5">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  <span class="text-white">15 TB</span> cloud storage
-                </span>
-              </p>
-
-              <a href="#" class="">
-                <p class="w-full py-4 bg-blue-600 mt-8 rounded-xl text-white">
-                  <span class="font-medium">Choose Plan</span>
-                  <span class="pl-2 material-icons align-middle text-sm">
-                    east
-                  </span>
-                </p>
-              </a>
+        <div class="w-full md:w-1/2 lg:w-1/3 p-4 lg:order-3">
+          <div class="flex flex-col rounded pb-5 border-2 border-blue-700 bg-blue-700">
+            <div class="py-5 text-blue-700 bg-stone-200">
+              <h3>Value Plan</h3>
+              <p class="text-5xl font-bold">$8</p>
             </div>
-            <div class="absolute top-4 right-4">
-              <p class="bg-blue-700 font-semibold px-4 py-1 rounded-full uppercase text-xs">
-                Popular
+            <div class="p-5 flex flex-col gap-3 h-[100px] justify-center items-center  bg-blue-700 text-white rounded-b">
+              <p className=" text-2xl tracking-wides font-semibold">
+                5 members
               </p>
             </div>
-          </div>
-
-          <div class="w-96 p-8 bg-white text-center rounded-3xl pl-16 shadow-xl">
-            <h1 class="text-black font-semibold text-2xl">Enterprise</h1>
-            <p class="pt-2 tracking-wide">
-              <span class="text-gray-400 align-top">$ </span>
-              <span class="text-3xl font-semibold">35</span>
-              <span class="text-gray-400 font-medium">/ user</span>
-            </p>
-            <hr class="mt-4 border-1" />
-            <div class="pt-8">
-              <p class="font-semibold text-gray-400 text-left">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  All features in <span class="text-black">Startup</span>
-                </span>
-              </p>
-              <p class="font-semibold text-gray-400 text-left pt-5">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  Growth <span class="text-black">oriented</span>
-                </span>
-              </p>
-              <p class="font-semibold text-gray-400 text-left pt-5">
-                <span class="material-icons align-middle">done</span>
-                <span class="pl-2">
-                  <span class="text-black">Unlimited</span> cloud storage
-                </span>
-              </p>
-
-              <a href="#" class="">
-                <p class="w-full py-4 bg-blue-600 mt-8 rounded-xl text-stone-700">
-                  <span class="font-medium">Choose Plan</span>
-                  <span class="pl-2 material-icons align-middle text-sm">
-                    east
-                  </span>
-                </p>
-              </a>
+            <div className="text-center">
+              {user ? (
+                <button
+                  onClick={handleValuePlan}
+                  class="px-5 py-2  uppercase rounded bg-white text-stone-950  text-sm font-semibold"
+                >
+                  Buy
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate('/signupAsHR')}
+                  class="px-5 py-2  uppercase rounded bg-white text-stone-950  text-sm font-semibold"
+                >
+                  Buy
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {/*  */}
     </div>
   );
 };

@@ -2,10 +2,11 @@ import { useState } from 'react';
 import useHR from '../../Hooks/useHR';
 import { useForm } from 'react-hook-form';
 import useAxios from '../../Hooks/useAxios';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
-  const { userData } = useHR();
+  const { userData, refetch } = useHR();
   const axios = useAxios();
   const {
     register,
@@ -15,11 +16,14 @@ const Profile = () => {
 
   const onSubmit = async (data) => {
     const res = await axios.patch(`/users/${userData._id}`, data);
-    console.log(data);
-    console.log(res.data);
+    if (res?.data?.result?.modifiedCount) {
+      refetch();
+      toast.success('Update Profile');
+      setEdit(false);
+    }
   };
   return (
-    <div className="h-[calc(100vh-85px)] flex flex-col items-center justify-center">
+    <div className="min-h-[calc(100vh-85px)] flex flex-col items-center justify-center">
       <div className="w-3/4 lg:w-1/2  mx-auto text-stone-200">
         <div className="px-6  py-8 bg-blue rounded-lg shadow-lg">
           <div className="flex items-center justify-between mb-7">
@@ -115,7 +119,7 @@ const Profile = () => {
                   <p className="font-semibold text-sm text-stone-200">
                     Date Of Birth:
                   </p>
-                  <p className=" text-stone-300">{}</p>
+                  <p className=" text-stone-300">{userData?.dateOfBirth}</p>
                 </li>
               </ul>
             )}

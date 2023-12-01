@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
+import useHR from '../../Hooks/useHR';
 
 const RequestModal = ({ setShowModal, list: { productName, type } }) => {
   const [note, setNote] = useState('');
   const { user } = useAuth();
+  const { userData } = useHR();
   const axios = useAxios();
 
   const date = new Date();
@@ -17,6 +19,7 @@ const RequestModal = ({ setShowModal, list: { productName, type } }) => {
       name: user?.displayName,
       additionalInfo: note,
       status: 'Pending',
+      companyName: userData?.companyName,
     };
 
     const { data } = await axios.post('/requestForAsset', requestedData);

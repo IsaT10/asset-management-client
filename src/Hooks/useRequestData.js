@@ -14,13 +14,16 @@ const useRequestData = (requestStatus, assetType, search, searchUser) => {
       requestStatus,
       assetType,
       search,
+      userData?.companyName,
       user?.email,
       searchUser,
     ],
     queryFn: async () => {
       const res = await axios.get(
         `/requestForAsset?email=${
-          userData?.role === 'employee' ? user.email : ''
+          userData?.role !== 'HR' ? user?.email : ''
+        }&companyName=${
+          userData?.role === 'HR' ? userData?.companyName : ''
         }&requestStatus=${requestStatus}&assetType=${assetType}&search=${search}&searchUser=${searchUser}`
       );
       return res.data;

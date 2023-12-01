@@ -20,6 +20,8 @@ const Modal = ({
   const axios = useAxios();
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log('sdsadsadsadasdasd');
     const assetName = e.target.assetName.value;
     const price = e.target.price.value;
     const type = e.target.type.value;
@@ -129,7 +131,7 @@ const Modal = ({
             <div className="w-2/5 flex flex-col items-start gap-2">
               {editable ? (
                 <input
-                  className="font-bold text-lg"
+                  className="px-3   w-full outline-none text-lg border-2 border-stone-500 rounded-sm"
                   type="text"
                   name="assetName"
                   defaultValue={assetName}
@@ -139,7 +141,7 @@ const Modal = ({
               )}
               {editable ? (
                 <input
-                  className="font-semibold text-stone-600"
+                  className="px-3 py-0.5  w-full text-sm text-stone-700 outline-none font-semibold border-2 border-stone-600 rounded-sm"
                   type="text"
                   name="price"
                   defaultValue={price}
@@ -178,12 +180,17 @@ const Modal = ({
                 </span>
               </p>
               {editable ? (
-                <input
-                  className=" text-stone-600"
-                  type="text"
-                  name="whyNeedThis"
-                  defaultValue={whyNeedThis}
-                />
+                <>
+                  <label className="text-stone-600 font-semibold -mb-1.5">
+                    Why need This :
+                  </label>
+                  <textarea
+                    name="whyNeedThis"
+                    className="px-3 py-1 z-20 border-2 w-[400px] outline-none   border-stone-500 rounded-sm text-stone-600"
+                    placeholder=""
+                    defaultValue={whyNeedThis}
+                  ></textarea>
+                </>
               ) : (
                 <p className=" text-stone-600">
                   <span className=" text-stone-600">Why Needed :</span>{' '}
@@ -200,12 +207,17 @@ const Modal = ({
             </div>
           </div>
           {editable ? (
-            <input
-              className=" text-stone-600"
-              type="text"
-              defaultValue={info}
-              name="info"
-            />
+            <div className="flex flex-col gap-2 mt-3">
+              <label className="text-stone-600 font-semibold -mb-1.5">
+                Additional Info :
+              </label>
+              <textarea
+                name="info"
+                className="px-3 py-1 z-20 border-2 w-[400px] outline-none   border-stone-500 rounded-sm text-stone-600"
+                placeholder=""
+                defaultValue={info}
+              ></textarea>
+            </div>
           ) : (
             <p className="mt-5">{info}</p>
           )}
@@ -226,12 +238,21 @@ const Modal = ({
                 Update
               </span>
             )}
-            <button
-              onClick={() => setShowModal(false)}
-              className="bg-red-600 text-cyan-100 rounded-sm font-semibold px-4 py-2 mt-2"
-            >
-              Close
-            </button>
+            {editable ? (
+              <button
+                onClick={() => setEditable(false)}
+                className="bg-red-600 text-cyan-100 rounded-sm font-semibold px-4 py-2 mt-2"
+              >
+                Cancel
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-red-600 text-cyan-100 rounded-sm font-semibold px-4 py-2 mt-2"
+              >
+                Close
+              </button>
+            )}
           </div>
         </form>
       </div>

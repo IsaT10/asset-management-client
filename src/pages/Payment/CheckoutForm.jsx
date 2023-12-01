@@ -1,0 +1,121 @@
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { useEffect, useState } from 'react';
+import useAxios from '../../Hooks/useAxios';
+// import useHR from '../../Hooks/useHR';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
+const CheckoutForm = ({ userData, usd, refetch }) => {
+  const [err, setErr] = useState('');
+  const [clientSecret, setClientSecret] = useState('');
+  const stripe = useStripe();
+  const elements = useElements();
+  const navigate = useNavigate();
+  const axios = useAxios();
+  const members = Number(userData?.package?.split(' ')[0]);
+
+  useEffect(() => {
+    axios.post('/create-payment-intent', { price: usd }).then((res) => {
+      console.log(res.data.clientSecret);
+      setClientSecret(res.data.clientSecret);
+    });
+  }, [axios, usd]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const card = elements.getElement(CardElement);
+
+    if (card === null) {
+      return;
+    }
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card,
+    });
+
+    if (error) {
+      console.log(error);
+      setErr(error.message);
+      return;
+    } else {
+      console.log('paymentMethod', paymentMethod);
+      setErr('');
+    }
+
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: userData?.name || 'anonymous',
+            email: userData?.email || 'anonymous',
+          },
+        },
+      });
+
+    if (confirmError) {
+      console.log(confirmError);
+      setErr('');
+    } else {
+      console.log('intent', paymentIntent);
+      if (paymentIntent.status === 'succeeded') {
+        const payment = {
+          email: userData?.email,
+          price: usd,
+          date: new Date(),
+          package: userData?.package,
+          transactionId: paymentIntent.id,
+        };
+
+        const res = await axios.post('/payments', {
+          payment,
+          id: userData._id,
+          members,
+        });
+        console.log(res.data.updateHR.modifiedCount);
+        if (res.data.updateHR.modifiedCount) {
+          toast.success('Success');
+          refetch();
+          navigate('/HrHome');
+        }
+      }
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement
+        options={{
+          style: {
+            base: {
+              fontSize: '16px',
+              color: '#424770',
+              '::placeholder': {
+                color: '#aab7c4',
+              },
+            },
+            invalid: {
+              color: '#9e2146',
+            },
+          },
+        }}
+      />
+      <button
+        className="bg-blue px-4 py-1.5 rounded-sm disabled:opacity-40 text-white font-semibold"
+        type="submit"
+        disabled={!stripe || !clientSecret}
+      >
+        Pay
+      </button>
+      <p className="text-red-500 text-sm ">{err}</p>
+    </form>
+  );
+};
+
+export default CheckoutForm;

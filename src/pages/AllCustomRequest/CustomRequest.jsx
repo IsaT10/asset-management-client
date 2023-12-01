@@ -1,4 +1,35 @@
+import { toast } from 'react-toastify';
+import useAxios from '../../Hooks/useAxios';
+
 const CustomRequest = ({ reqData, refetch }) => {
+  const axios = useAxios();
+  const approvalDate = new Date();
+  const handleApprove = async (id) => {
+    const res = await axios.patch(`/custom-request/${id}`, {
+      approvalDate,
+      status: 'Approved',
+    });
+
+    if (res?.data?.modifiedCount) {
+      toast.success('Approve request');
+
+      refetch();
+    }
+    console.log(res.data);
+  };
+
+  const handleReject = async (id) => {
+    const res = await axios.patch(`/custom-request/${id}`, {
+      status: 'Rejected',
+    });
+
+    if (res?.data?.modifiedCount) {
+      toast.warning('Reject request');
+      refetch();
+    }
+    console.log(res.data);
+  };
+
   return (
     <tbody className="">
       <tr className="border-b-2 border-stone-200">
@@ -30,7 +61,9 @@ const CustomRequest = ({ reqData, refetch }) => {
             className={`${
               reqData?.status === 'Pending'
                 ? 'font-semibold uppercase text-xs text-orange-500'
-                : 'font-semibold uppercase text-xs text-green-500'
+                : reqData?.status === 'Approved'
+                ? 'font-semibold uppercase text-xs text-green-500'
+                : 'font-semibold uppercase text-xs text-red-600'
             }`}
           >
             {reqData?.status}
@@ -38,7 +71,7 @@ const CustomRequest = ({ reqData, refetch }) => {
         </td>
 
         <td className=" text-center w-20">
-          {reqData?.status === 'Approved' ? (
+          {reqData?.status === 'Approved' || reqData?.status === 'Rejected' ? (
             <button
               disabled
               className="font-semibold text-xs uppercase px-3 py-1.5 opacity-30 bg-green-600 text-white rounded-sm"
@@ -46,14 +79,17 @@ const CustomRequest = ({ reqData, refetch }) => {
               Approve
             </button>
           ) : (
-            <button className="font-semibold text-xs uppercase px-3 py-1.5 bg-green-600 text-white rounded-sm">
+            <button
+              onClick={() => handleApprove(reqData._id)}
+              className="font-semibold text-xs uppercase px-3 py-1.5 bg-green-600 text-white rounded-sm"
+            >
               Approve
             </button>
           )}
         </td>
 
         <td className=" text-center w-20">
-          {reqData?.status === 'Approved' ? (
+          {reqData?.status === 'Approved' || reqData?.status === 'Rejected' ? (
             <button
               disabled
               className="font-semibold text-xs uppercase px-3 py-1.5 bg-red-600 text-white rounded-sm opacity-30"
@@ -61,7 +97,10 @@ const CustomRequest = ({ reqData, refetch }) => {
               Reject
             </button>
           ) : (
-            <button className="font-semibold text-xs uppercase px-3 py-1.5 bg-red-600 text-white rounded-sm">
+            <button
+              onClick={() => handleReject(reqData._id)}
+              className="font-semibold text-xs uppercase px-3 py-1.5 bg-red-600 text-white rounded-sm"
+            >
               Reject
             </button>
           )}

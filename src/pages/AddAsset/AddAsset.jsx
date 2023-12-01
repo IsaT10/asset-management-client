@@ -2,12 +2,16 @@ import { useForm } from 'react-hook-form';
 import Title from '../../components/Title';
 import useAxios from '../../Hooks/useAxios';
 import useAuth from '../../Hooks/useAuth';
+import useHR from '../../Hooks/useHR';
+import { toast } from 'react-toastify';
 
 const AddAsset = () => {
   const { user } = useAuth();
+  const { userData } = useHR();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -23,10 +27,14 @@ const AddAsset = () => {
       quantity: Number(data.quantity),
       date,
       hrEmail: user?.email,
+      companyName: userData?.companyName,
     };
 
     const res = await axios.post('/allAssets', productsData);
-    console.log(res.data);
+    if (res.data.insertedId) {
+      toast.success('Asset Added');
+      reset();
+    }
   };
   return (
     <div className="min-h-screen">

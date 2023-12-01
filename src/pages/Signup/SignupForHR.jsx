@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
 import useAxios from '../../Hooks/useAxios';
-import { FaFacebook, FaGithub, FaEye, FaGoogle } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 const SignupForHR = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, setLoading, userProfileUpdate } = useAuth();
-
   // const google = GoogleLogIn();
   //   const axios = useAxios();
   const {
@@ -28,6 +28,7 @@ const SignupForHR = () => {
     const imageFile = { image: data.companyLogo[0] };
     const profileImageFile = { image: data.image[0] };
     console.log(imageFile, profileImageFile);
+    const members = Number(data?.package?.split(' ')[0]);
 
     const res = await axios.post(
       'https://api.imgbb.com/1/upload?key=b9e7fd7e7e867150e5dff9ee884e9359',
@@ -60,19 +61,22 @@ const SignupForHR = () => {
             package: data.package,
             companyLogo: imageUrl,
             companyName: data.companyName,
+            dateOfBirth: data.date,
+            members,
+            payment: 'require',
           };
-          axios.post('/users', userInfo).then((res) => {
-            if (res.data.acknowledged) {
-              setLoading(false);
-              //   toast.success('Successfully signup');
-              navigate(from, { replace: true });
-            }
-          });
+          axios
+            .post('/users', userInfo)
+            .then((res) => {
+              if (res.data.acknowledged) {
+                setLoading(false);
+                toast.success('Successfully signup');
+                navigate(from, { replace: true });
+              }
+            })
+            .then(() => navigate('/payment'));
         })
-        .catch((error) => {
-          // console.log(error);
-        });
-      // toast.success('Successfully signup');
+        .catch((error) => {});
     });
   };
   return (

@@ -10,7 +10,13 @@ const AssetsList = () => {
   const [search, setSearch] = useState('');
   const [asc, setAsc] = useState(true);
 
-  const { allAssets } = useAllAssets(asc, stockStatus, assetType, search);
+  const { allAssets, refetch } = useAllAssets(
+    asc,
+    stockStatus,
+    assetType,
+    search,
+    ''
+  );
   console.log(allAssets);
   console.log(search);
   //   const updateQuery = (e) => setSearch(e?.target?.value);
@@ -61,7 +67,7 @@ const AssetsList = () => {
                 <th>Product Name</th>
                 <th>Product Type</th>
                 <th className="text-center">Product Quantity</th>
-                <th>Date Added</th>
+                <th>Added Date</th>
                 <th className="text-center">Action</th>
                 <th className="text-center">Action</th>
               </tr>
@@ -70,7 +76,7 @@ const AssetsList = () => {
               {/* row 1 */}
 
               {allAssets?.map((list, i) => (
-                <SingleAsset key={i} list={list} />
+                <SingleAsset key={i} list={list} refetch={refetch} />
               ))}
             </tbody>
           </table>

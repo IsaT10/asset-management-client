@@ -19,7 +19,7 @@ const Banner = () => {
           if (mouseOver) return;
           timeout = setTimeout(() => {
             slider.next();
-          }, 7000);
+          }, 3000);
         }
         slider.on('created', () => {
           slider.container.addEventListener('mouseover', () => {
@@ -40,29 +40,32 @@ const Banner = () => {
   );
   return (
     <>
-      <div ref={sliderRef} className="keen-slider rounded-[4px]">
-        <div className="keen-slider__slide number-slide1 px-20 py-20">
-          <div className="  ">
-            <h2 className="text-5xl tracking-wide text-stone-200 leading-tight uppercase">
+      <div
+        ref={sliderRef}
+        className="keen-slider rounded-[4px] h-[50vh] md:h-[80vh]"
+      >
+        <div className="keen-slider__slide number-slide1 px-6 lg:px-20 py-20 ">
+          <div className=" ">
+            <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide text-stone-200 leading-tight uppercase">
               Maximize <br /> Productivity, <br /> Minimize Hassle <br /> Your
               Asset Management <br /> Companion.
             </h2>
             <Link to="/signupAsEmployee">
-              <button className="bg-darkBlue font-semibold hover:bg-blue duration-150 text-white text-base px-4 py-2 mt-6 rounded-sm uppercase">
+              <button className="bg-darkBlue font-semibold hover:bg-blue duration-150 text-white text-sm md:text-base px-3 md:px-4 py-1.5 md:py-2 mt-6  rounded-sm uppercase">
                 Join As An Employee
               </button>
             </Link>
           </div>
         </div>
-        <div className="keen-slider__slide number-slide2 px-20 py-20">
+        <div className="keen-slider__slide number-slide2 px-6 lg:px-20 py-20">
           <div className="  ">
-            <h2 className="text-5xl tracking-wide text-stone-200 leading-tight uppercase">
+            <h2 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide text-stone-200 leading-tight uppercase">
               Transformative <br /> Asset Control <br /> for Organizational{' '}
               <br />
               Success
             </h2>
             <Link to="/signupAsHR">
-              <button className="bg-darkBlue font-semibold hover:bg-blue duration-150 text-white text-base px-4 py-2 mt-6 rounded-sm uppercase">
+              <button className="bg-darkBlue font-semibold hover:bg-blue duration-150 text-white text-sm md:text-base px-3 md:px-4 py-1.5 md:py-2 mt-6  rounded-sm uppercase">
                 Join As HR
               </button>
             </Link>

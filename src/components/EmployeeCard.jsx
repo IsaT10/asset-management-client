@@ -1,14 +1,22 @@
 import { toast } from 'react-toastify';
 import useAxios from '../Hooks/useAxios';
+import useUsers from '../Hooks/useUsers';
+import { FaUserGear } from 'react-icons/fa6';
+import { RiAdminFill } from 'react-icons/ri';
+import useHR from '../Hooks/useHR';
 
 const EmployeeCard = ({ employee, usersRefetch }) => {
+  const { userData, refetch } = useHR();
   const axios = useAxios();
   const handleDelete = async () => {
     const res = await axios.patch(`/users/${employee?._id}`, {
       companyName: '',
+      HR_id: userData?._id,
+      members: userData?.members + 1,
     });
 
-    if (res?.data?.modifiedCount) {
+    if (res?.data?.result.modifiedCount) {
+      refetch();
       toast.success('Remove Employee from team');
       usersRefetch();
     }
@@ -27,9 +35,14 @@ const EmployeeCard = ({ employee, usersRefetch }) => {
           {employee?.name}
         </div>
 
-        <div className="flex text-stone-400 uppercase items-center mb-2 text-sm font-semibold">
+        <p className="flex text-stone-400 uppercase items-center mb-2 text-sm font-semibold">
+          {employee?.role === 'employee' ? (
+            <FaUserGear className="mr-1 text-lg" />
+          ) : (
+            <RiAdminFill className="mr-1 text-lg" />
+          )}
           {employee?.role}
-        </div>
+        </p>
 
         <button
           onClick={handleDelete}

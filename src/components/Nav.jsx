@@ -1,13 +1,15 @@
 import { Link, NavLink } from 'react-router-dom';
 import useHR from '../Hooks/useHR';
 import useAuth from '../Hooks/useAuth';
+import useUsers from '../Hooks/useUsers';
 // import logo from '../assets/images/logo1.png';
 // import useAuth from '../hooks/useAuth';
 
 const Nav = () => {
   const { userData } = useHR();
+  const { isEmployee } = useUsers(userData?.companyName);
+  const myEmployee = isEmployee.filter((user) => user.role === 'employee');
   const { user, logOut } = useAuth();
-  console.log(userData);
 
   const handleLogout = () => {
     logOut();
@@ -107,7 +109,7 @@ const Nav = () => {
 
               <li>
                 <NavLink
-                  to="/addblog"
+                  to="/signupAsEmployee"
                   className={({ isActive, isPending }) =>
                     isPending
                       ? 'pending'
@@ -199,7 +201,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          : '  hover:text-primary-color  duration-100  '
                       }
                     >
                       All Requests
@@ -216,7 +218,7 @@ const Nav = () => {
                           : '  hover:text-primary-color duration-100  '
                       }
                     >
-                      Custom Requests List
+                      Custom Requests
                     </NavLink>
                   </li>
                   <li>
@@ -244,7 +246,7 @@ const Nav = () => {
                           : '  hover:text-primary-color duration-100  '
                       }
                     >
-                      My Employee
+                      My Employee({myEmployee?.length})
                     </NavLink>
                   </li>
                   <li>
@@ -347,21 +349,6 @@ const Nav = () => {
                 <ul className="flex gap-4 items-center">
                   <li>
                     <NavLink
-                      to="/"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? 'pending'
-                          : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
-                      }
-                    >
-                      Home
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
                       to="/assets"
                       className={({ isActive, isPending }) =>
                         isPending
@@ -376,7 +363,7 @@ const Nav = () => {
                   </li>
                   <li>
                     <NavLink
-                      to="/featuredblogs"
+                      to="/myTeam"
                       className={({ isActive, isPending }) =>
                         isPending
                           ? 'pending'
@@ -400,7 +387,7 @@ const Nav = () => {
                           : '  hover:text-primary-color duration-100  '
                       }
                     >
-                      Request for an Asset
+                      Request Assets
                     </NavLink>
                   </li>
                   <li>
@@ -414,7 +401,7 @@ const Nav = () => {
                           : '  hover:text-primary-color duration-100  '
                       }
                     >
-                      Make a Custom Request
+                      Custom Request
                     </NavLink>
                   </li>
                   <li>

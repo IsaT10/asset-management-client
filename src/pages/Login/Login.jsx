@@ -4,6 +4,7 @@ import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
 import useAxios from '../../Hooks/useAxios';
 import { FaFacebook, FaGithub, FaEye, FaGoogle } from 'react-icons/fa';
+import GoogleLogIn from '../../components/GoogleLogIn';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +43,7 @@ const Login = () => {
   };
   return (
     <div className=" lg:w-1/2 mx-auto flex flex-col items-center h-screen justify-center py-2 ">
-      <h3 className="text-2xl font-bold text-stone-100 mb-4">Sign up</h3>
+      <h3 className="text-2xl font-bold text-stone-100 mb-4">Login</h3>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 w-full sm:p-0 px-8 sm:w-3/5 md:w-4/5 lg:w-3/5"
@@ -105,23 +106,23 @@ const Login = () => {
         </button>
       </form>
       <p className="mt-4 text-blue font-semibold text-sm">
-        Already registered?
-        <Link to="/login" className="underline cursor-pointer ">
-          Go to log in
+        Don't have account?
+        <Link to="/signupAsEmployee" className="underline cursor-pointer ">
+          Signup as Employee
         </Link>
       </p>
       <p className="text-blue mt-2 font-semibold text-sm">Or sign in with</p>
       <div className="my-3 flex gap-8 text-blue hover:text-darkBlue">
-        <div className=" border-2 border-blue rounded-full p-1.5 cursor-pointer ">
+        {/* <div className=" border-2 border-blue rounded-full p-1.5 cursor-pointer ">
           <FaGoogle className="text-xl" />
-        </div>
+        </div> */}
         {/* <div
                 onClick={google}
                 className=" border-2 border-stone-700 rounded-full p-1.5"
               >
                 <FaGoogle className="cursor-pointer" />
               </div> */}
-        {/* <GoogleLogIn /> */}
+        <GoogleLogIn />
       </div>
     </div>
   );

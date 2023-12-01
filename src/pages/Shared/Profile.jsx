@@ -3,6 +3,7 @@ import useHR from '../../Hooks/useHR';
 import { useForm } from 'react-hook-form';
 import useAxios from '../../Hooks/useAxios';
 import { toast } from 'react-toastify';
+import HelmetTag from '../../components/HelmetTag';
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
@@ -24,6 +25,7 @@ const Profile = () => {
   };
   return (
     <div className="min-h-[calc(100vh-85px)] flex flex-col items-center justify-center">
+      <HelmetTag title={`${userData?.name} | Profile`} />
       <div className="w-3/4 lg:w-1/2  mx-auto text-stone-200">
         <div className="px-6  py-8 bg-blue rounded-lg shadow-lg">
           <div className="flex items-center justify-between mb-7">

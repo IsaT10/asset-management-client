@@ -7,6 +7,7 @@ import Title from '../../components/Title';
 import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
 import { toast } from 'react-toastify';
+import HelmetTag from '../../components/HelmetTag';
 
 const CustomRequestForm = () => {
   const { user } = useAuth();
@@ -64,6 +65,7 @@ const CustomRequestForm = () => {
   };
   return (
     <div className="">
+      <HelmetTag title="Custom Asset Request" />
       {!userData?.companyName ? (
         <NotFoundData>
           You're not yet part of a team. That's why you can not request custom

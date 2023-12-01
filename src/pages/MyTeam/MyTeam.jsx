@@ -5,6 +5,7 @@ import Event from './Section/Event';
 import { RiAdminFill } from 'react-icons/ri';
 import { FaUserGear } from 'react-icons/fa6';
 import NotFoundData from '../../components/NotFoundData';
+import HelmetTag from '../../components/HelmetTag';
 
 const MyTeam = () => {
   const { userData } = useHR();
@@ -28,6 +29,7 @@ const MyTeam = () => {
   //   );
   return (
     <>
+      <HelmetTag title="My Teammates " />
       {!userData?.companyName ? (
         <NotFoundData> You are not a member of any team yet.</NotFoundData>
       ) : (

@@ -1,4 +1,5 @@
 import useCustomRequestData from '../../Hooks/useCustomRequestData';
+import HelmetTag from '../../components/HelmetTag';
 import Title from '../../components/Title';
 import CustomRequest from './CustomRequest';
 
@@ -6,6 +7,8 @@ const AllCustomRequest = () => {
   const { customRequestData, refetch } = useCustomRequestData();
   return (
     <>
+      <HelmetTag title="Custom Request By Employee" />
+
       <Title title="Custom Request" />
       <div className="  bg-stone-950 mx-4 md:mx-auto   min-h-screen">
         <div className="overflow-x-auto rounded-t-md">

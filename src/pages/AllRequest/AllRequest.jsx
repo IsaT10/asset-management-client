@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useRequestData from '../../Hooks/useRequestData';
 import Request from './Request';
 import Title from '../../components/Title';
+import HelmetTag from '../../components/HelmetTag';
 
 const AllRequest = () => {
   const [searchUser, setSearchUser] = useState('');
@@ -10,6 +11,7 @@ const AllRequest = () => {
   console.log(searchUser);
   return (
     <div className="min-h-screen">
+      <HelmetTag title="All Request By Employee" />
       <Title title="All Request" />
       <input
         type="text"

@@ -5,6 +5,7 @@ import useUsers from '../../Hooks/useUsers';
 import Title from '../../components/Title';
 import useAllAssets from '../../Hooks/useAllAssets';
 import { Link } from 'react-router-dom';
+import HelmetTag from '../../components/HelmetTag';
 
 const AddAnEmployee = () => {
   const { usersRefetch, isEmployee } = useUsers('');
@@ -38,6 +39,8 @@ const AddAnEmployee = () => {
   };
   return (
     <div className="">
+      <HelmetTag title="Overview " />
+
       {/* <Packages /> */}
       <Title title="Overview" />
       {/* <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">

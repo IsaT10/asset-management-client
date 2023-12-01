@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Title from '../../components/Title';
 import useRequestData from '../../Hooks/useRequestData';
 import Asset from './Asset';
+import HelmetTag from '../../components/HelmetTag';
 
 const MyAssets = () => {
   const [requestStatus, setRequestStatus] = useState('all');
@@ -16,6 +17,7 @@ const MyAssets = () => {
 
   return (
     <div className="min-h-screen">
+      <HelmetTag title="My Assets | Employee" />
       <Title title="Assets List" />
 
       <div className="flex justify-between items-start">

@@ -1,6 +1,8 @@
 import { toast } from 'react-toastify';
 import useAxios from '../../Hooks/useAxios';
 import { date } from '../../utils/date';
+import { FaPrint } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Asset = ({ reqData, refetch }) => {
   const axios = useAxios();
@@ -72,13 +74,20 @@ const Asset = ({ reqData, refetch }) => {
               Cancel
             </button>
           ) : reqData?.status === 'Approved' ? (
-            <button
-              onClick={handleReturn}
-              disabled={reqData?.type === 'Non-returnable'}
-              className="font-semibold disabled:opacity-40 text-sm uppercase px-3 py-1 bg-blue text-white rounded-sm"
-            >
-              Return
-            </button>
+            <div className="flex items-center gap-2 justify-center ml-7">
+              <button
+                onClick={handleReturn}
+                disabled={reqData?.type === 'Non-returnable'}
+                className="font-semibold disabled:opacity-40 text-sm uppercase px-3 py-1 bg-blue text-white rounded-sm"
+              >
+                Return
+              </button>
+              <div className="tooltip tooltip-top" data-tip="Print">
+                <Link to="/details" className="cursor-pointer ">
+                  <FaPrint className=" text-xl text-stone-300 mt-1" />
+                </Link>
+              </div>
+            </div>
           ) : (
             <>
               {reqData?.status === 'Returned' ? (

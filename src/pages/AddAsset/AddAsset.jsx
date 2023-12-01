@@ -4,6 +4,7 @@ import useAxios from '../../Hooks/useAxios';
 import useAuth from '../../Hooks/useAuth';
 import useHR from '../../Hooks/useHR';
 import { toast } from 'react-toastify';
+import HelmetTag from '../../components/HelmetTag';
 
 const AddAsset = () => {
   const { user } = useAuth();
@@ -37,7 +38,8 @@ const AddAsset = () => {
     }
   };
   return (
-    <div className="min-h-screen">
+    <div>
+      <HelmetTag title="Add Asset " />
       <div className="text-center">
         <Title title="Add an Asset" />
       </div>

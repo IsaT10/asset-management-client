@@ -4,6 +4,7 @@ import PendingRequest from './Section/PendingRequest';
 import LimitedItems from './Section/LimitedItems';
 import RequestedItems from './Section/RequestedItems';
 import Piechart from './Section/PieChart';
+import HelmetTag from '../../components/HelmetTag';
 
 const HrHome = () => {
   const { requestData } = useRequestData('', '', '', '');
@@ -11,6 +12,7 @@ const HrHome = () => {
 
   return (
     <div className="">
+      <HelmetTag title="Home | HR" />
       <Title title="Pending Request" />
       <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
         <div className="overflow-x-auto rounded-t-md">

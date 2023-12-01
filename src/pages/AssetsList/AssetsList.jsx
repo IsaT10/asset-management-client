@@ -3,6 +3,7 @@ import useAllAssets from '../../Hooks/useAllAssets';
 import useCustomRequestData from '../../Hooks/useCustomRequestData';
 import Title from '../../components/Title';
 import SingleAsset from './SingleAsset';
+import HelmetTag from '../../components/HelmetTag';
 
 const AssetsList = () => {
   const [stockStatus, setStockStatus] = useState('all');
@@ -23,7 +24,8 @@ const AssetsList = () => {
   //   const debouncedOnChange = debounce(updateQuery, 300);
 
   return (
-    <div className="min-h-screen">
+    <div>
+      <HelmetTag title="All Assets" />
       <Title title="Assets List" />
       <button onClick={() => setAsc(!asc)}>
         {asc ? 'high to low' : 'low to high'}

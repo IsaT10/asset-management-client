@@ -1,6 +1,7 @@
 import useHR from '../../Hooks/useHR';
 import useUsers from '../../Hooks/useUsers';
 import EmployeeCard from '../../components/EmployeeCard';
+import HelmetTag from '../../components/HelmetTag';
 
 const EmployeeList = () => {
   const { userData } = useHR();
@@ -8,7 +9,9 @@ const EmployeeList = () => {
   const myEmployee = isEmployee.filter((user) => user.role === 'employee');
   console.log(myEmployee);
   return (
-    <div className="min-h-screen">
+    <div className="">
+      <HelmetTag title="Employees " />
+
       <h2 className="text-3xl uppercase mt-16 mb-8 font-semibold text-stone-200">
         Team Members : {myEmployee?.length}
       </h2>

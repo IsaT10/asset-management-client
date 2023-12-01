@@ -4,7 +4,7 @@ import RequestModal from './RequestModal';
 const RequestList = ({ list }) => {
   const [showModal, setShowModal] = useState(false);
   return (
-    <>
+    <tbody>
       <tr className="border-b-2 border-stone-500">
         <td className="w-40">
           <p className="text-stone-200 font-semibold md:text-lg ">
@@ -49,7 +49,7 @@ const RequestList = ({ list }) => {
       ) : (
         ''
       )}
-    </>
+    </tbody>
   );
 };
 

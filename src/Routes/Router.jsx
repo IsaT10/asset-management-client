@@ -21,6 +21,7 @@ import HrHome from '../pages/HrHome/HrHome';
 import HrRoute from './HrRoute';
 import PackagesPage from '../pages/Packages/PackagesPage';
 import CustomRequestForm from '../pages/CustomRequestForm/CustomRequestForm';
+import Details from '../pages/Details/Details';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/details',
+        element: (
+          <PrivateRoute>
+            <Details />
           </PrivateRoute>
         ),
       },

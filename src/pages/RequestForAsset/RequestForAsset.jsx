@@ -4,6 +4,7 @@ import Title from '../../components/Title';
 import RequestList from './RequestList';
 import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
+import HelmetTag from '../../components/HelmetTag';
 
 const RequestForAsset = () => {
   const [stockStatus, setStockStatus] = useState('all');
@@ -18,7 +19,8 @@ const RequestForAsset = () => {
   );
 
   return (
-    <div className="min-h-screen">
+    <div>
+      <HelmetTag title="Request for Asset " />
       {!userData?.companyName ? (
         <NotFoundData>
           You're not yet part of a team. Please contact your HR for guidance and
@@ -67,13 +69,12 @@ const RequestForAsset = () => {
                     <th className="text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="">
-                  {/* row 1 */}
 
-                  {matchedData?.map((list, i) => (
-                    <RequestList key={i} list={list} />
-                  ))}
-                </tbody>
+                {/* row 1 */}
+
+                {matchedData?.map((list, i) => (
+                  <RequestList key={i} list={list} />
+                ))}
               </table>
             </div>
           </div>

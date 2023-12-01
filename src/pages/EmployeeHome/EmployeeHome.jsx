@@ -9,6 +9,7 @@ import MonthlyRequest from './Section/MonthlyRequest';
 import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
 import RequestedItems from '../HrHome/Section/RequestedItems';
+import HelmetTag from '../../components/HelmetTag';
 
 const EmployeeHome = () => {
   const { customRequestData } = useCustomRequestData();
@@ -71,6 +72,7 @@ const EmployeeHome = () => {
 
   return (
     <div className="">
+      <HelmetTag title="Home | Employee" />
       {!userData.companyName ? (
         <NotFoundData>
           You're not yet part of a team. Please contact your HR for guidance and

@@ -30,33 +30,51 @@ const RequestForAsset = () => {
         <>
           {' '}
           <Title title="Assets List" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <label>
-            Asset Type:
-            <select
-              value={assetType}
-              onChange={(e) => setAssetType(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="Returnable">Returnable</option>
-              <option value="Non-returnable">Non-Returnable</option>
-            </select>
-          </label>
-          <label>
-            Stock Status:
-            <select
-              value={stockStatus}
-              onChange={(e) => setStockStatus(e.target.value)}
-            >
-              <option value="All">All</option>
-              <option value="Available">Available</option>
-              <option value="Out-of-stock">Out of Stock</option>
-            </select>
-          </label>
+          <div className="flex justify-between items-start">
+            <div className="flex flex-col items-start gap-2">
+              <label className="text-stone-300 text-sm font-semibold">
+                Search By Name
+              </label>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="px-3 py-1 rounded-sm outline-none"
+              />
+            </div>
+
+            <div className="flex gap-10">
+              <div className="flex flex-col items-start gap-2">
+                <label className="text-stone-300 text-sm font-semibold">
+                  Asset Type:
+                </label>
+                <select
+                  className="px-3 py-1 rounded-sm outline-none"
+                  value={assetType}
+                  onChange={(e) => setAssetType(e.target.value)}
+                >
+                  <option value="All">All</option>
+                  <option value="Returnable">Returnable</option>
+                  <option value="Non-returnable">Non-Returnable</option>
+                </select>
+              </div>
+              <div className="flex flex-col items-start gap-2">
+                <label className="text-stone-300 text-sm font-semibold">
+                  Requsted Status:
+                </label>
+
+                <select
+                  className="px-3 py-1 rounded-sm outline-none w-full"
+                  value={stockStatus}
+                  onChange={(e) => setStockStatus(e.target.value)}
+                >
+                  <option value="All">All</option>
+                  <option value="Available">Available</option>
+                  <option value="Out-of-stock">Out of Stock</option>
+                </select>
+              </div>
+            </div>
+          </div>
           <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
             <div className="overflow-x-auto rounded-t-md">
               <table className="table rounded-t-md">

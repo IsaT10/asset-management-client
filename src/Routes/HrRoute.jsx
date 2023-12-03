@@ -3,10 +3,14 @@ import useAuth from '../Hooks/useAuth';
 import useHR from '../Hooks/useHR';
 
 const HrRoute = ({ children }) => {
+  const { userData, isLoading } = useHR();
   const { user, loading } = useAuth();
   const location = useLocation();
-  const { userData } = useHR();
-  console.log(userData);
+  console.log(userData.payment);
+  console.log('user', user);
+
+  console.log(isLoading, loading);
+  console.log(userData.role);
 
   if (loading) {
     return (
@@ -15,15 +19,19 @@ const HrRoute = ({ children }) => {
       </div>
     );
   }
-
-  if (!user) {
+  if (!user || !userData) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
-  if (userData?.role !== 'HR' || userData?.payment !== 'complete') {
+  if (userData?.payment === 'require') {
     return <Navigate to="/payment" />;
   }
-  return children;
+
+  // if (userData?.role === 'employee') {
+  //   return <Navigate to="/" />;
+  // }
+  if (user && userData?.role === 'HR') {
+    return children;
+  }
 };
 
 export default HrRoute;

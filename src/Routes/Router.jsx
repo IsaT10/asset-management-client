@@ -16,12 +16,12 @@ import Profile from '../pages/Shared/Profile';
 import AddAnEmployee from '../pages/AddAnEmployee/AddAnEmployee';
 import MyTeam from '../pages/MyTeam/MyTeam';
 import PrivateRoute from './PrivateRoute';
-import Payment from '../pages/Payment/Payment';
 import HrHome from '../pages/HrHome/HrHome';
 import HrRoute from './HrRoute';
 import PackagesPage from '../pages/Packages/PackagesPage';
 import CustomRequestForm from '../pages/CustomRequestForm/CustomRequestForm';
 import Details from '../pages/Details/Details';
+import Payment from '../pages/Payment/Payment/Payment';
 
 const router = createBrowserRouter([
   {
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/HRhome',
+        path: '/',
         element: (
           <HrRoute>
             <HrHome />
@@ -106,46 +106,50 @@ const router = createBrowserRouter([
       {
         path: '/assetsList',
         element: (
-          <PrivateRoute>
-            <AssetsList />{' '}
-          </PrivateRoute>
+          <HrRoute>
+            <AssetsList />
+          </HrRoute>
         ),
       },
       {
         path: '/allRequest',
         element: (
-          <PrivateRoute>
+          <HrRoute>
             <AllRequest />
-          </PrivateRoute>
+          </HrRoute>
         ),
       },
       {
         path: '/allCustomRequest',
         element: (
-          <PrivateRoute>
+          <HrRoute>
             <AllCustomRequest />
-          </PrivateRoute>
+          </HrRoute>
         ),
       },
       {
         path: '/addEmployee',
         element: (
-          <PrivateRoute>
+          <HrRoute>
             <AddAnEmployee />
-          </PrivateRoute>
+          </HrRoute>
         ),
       },
       {
         path: '/myEmployee',
         element: (
-          // <HrRoute>
-          <EmployeeList />
-          // </HrRoute>
+          <HrRoute>
+            <EmployeeList />
+          </HrRoute>
         ),
       },
       {
         path: '/payment',
-        element: <Payment />,
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
       },
     ],
   },

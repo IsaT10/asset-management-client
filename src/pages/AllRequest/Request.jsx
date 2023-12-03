@@ -1,9 +1,11 @@
 import { toast } from 'react-toastify';
 import useAxios from '../../Hooks/useAxios';
 import { date } from '../../utils/date';
+import useAllAssets from '../../Hooks/useAllAssets';
 
 const Request = ({ reqData, refetch }) => {
   const axios = useAxios();
+  const {} = useAllAssets();
   const { formattedDate } = date(reqData?.requestedDate);
   const approvalDate = new Date();
   const handleApprove = async (id) => {

@@ -1,12 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import useAuth from './useAuth';
 import useAxios from './useAxios';
+import useAxiosSecure from './useAxiosSecure';
 
 const useHR = () => {
-  const { user } = useAuth();
-  const axios = useAxios();
-  const { data: userData = {}, refetch } = useQuery({
+  const { user, loading } = useAuth();
+  const axios = useAxiosSecure();
+  const {
+    data: userData = {},
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ['HR', user?.email],
+    enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(`/users/HR/${user.email}`);
 
@@ -14,7 +20,7 @@ const useHR = () => {
     },
   });
 
-  return { userData, refetch };
+  return { userData, refetch, isLoading };
 };
 
 export default useHR;

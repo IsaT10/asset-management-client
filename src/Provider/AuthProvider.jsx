@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from 'react';
 import { createContext } from 'react';
 import { auth } from '../Config/Firebase';
+import useAxios from '../Hooks/useAxios';
 // import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -19,7 +20,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const axios = useAxios();
   const provider = new GoogleAuthProvider();
 
   const createUser = (email, password) => {
@@ -66,13 +67,28 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
       console.log(currentUser);
+
+      const userInfo = { email: currentUser?.email };
+      if (currentUser) {
+        const res = await axios.post('/jwt', userInfo);
+        // axios.post('/jwt', userInfo).then((res) => {
+        console.log(res.data);
+
+        if (res.data.token) {
+          console.log('before set token');
+          localStorage.setItem('token', res.data.token);
+          setLoading(false);
+        }
+      } else {
+        localStorage.removeItem('token');
+        setLoading(false);
+      }
     });
     return () => unsubscribe();
-  }, []);
+  }, [axios]);
 
   return (
     <AuthContext.Provider

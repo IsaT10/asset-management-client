@@ -2,10 +2,12 @@ import { Link, NavLink } from 'react-router-dom';
 import useHR from '../Hooks/useHR';
 import useAuth from '../Hooks/useAuth';
 import useUsers from '../Hooks/useUsers';
-// import logo from '../assets/images/logo1.png';
-// import useAuth from '../hooks/useAuth';
-
+import { toast } from 'react-toastify';
+import { useState } from 'react';
+import { IoMdArrowDropdown } from 'react-icons/io';
+import { FaArrowRight } from 'react-icons/fa';
 const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { userData } = useHR();
   const { isEmployee } = useUsers(userData?.companyName);
   const myEmployee = isEmployee.filter((user) => user.role === 'employee');
@@ -13,7 +15,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     logOut();
-    // toast.success('Successfully logged out');
+    toast.success('Successfully logged out');
   };
   return (
     <div className="px-2 lg:px-0 py-2 text-stone-200">
@@ -21,7 +23,7 @@ const Nav = () => {
         <div className=" flex w-full md:w-44 justify-between items-center">
           <div className="flex  gap-2 md:gap-2 lg:gap-5 items-center">
             <Link to="/">
-              {userData?.role === 'HR' ? (
+              {userData?.companyLogo ? (
                 <img
                   className="w-20 object-cover"
                   src={userData?.companyLogo}
@@ -89,7 +91,7 @@ const Nav = () => {
             </ul>
           </div>
         </div>
-        <div className=" hidden md:flex ">
+        <div className=" hidden md:flex relative">
           {!userData?.role ? (
             <ul className="flex gap-4 items-center">
               <li>
@@ -100,7 +102,7 @@ const Nav = () => {
                       ? 'pending'
                       : isActive
                       ? 'text-blue border-primary-color  pl-1  font-semibold'
-                      : 'font-semibold  hover:text-primary-color duration-100  '
+                      : 'font-semibold  hover:text-blue duration-100  '
                   }
                 >
                   Home
@@ -115,10 +117,10 @@ const Nav = () => {
                       ? 'pending'
                       : isActive
                       ? 'text-blue border-primary-color   pl-1  font-semibold'
-                      : 'font-semibold hover:text-primary-color duration-100 '
+                      : 'font-semibold hover:text-blue duration-100 '
                   }
                 >
-                  Join as employee
+                  Join as Employee
                 </NavLink>
               </li>
               <li>
@@ -129,7 +131,7 @@ const Nav = () => {
                       ? 'pending'
                       : isActive
                       ? 'text-blue border-primary-color   pl-1  font-semibold'
-                      : 'font-semibold hover:text-primary-color duration-100 '
+                      : 'font-semibold hover:text-blue duration-100 '
                   }
                 >
                   Join as HR/Admin
@@ -157,12 +159,27 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          : '  hover:text-blue duration-100  '
                       }
                     >
                       Home
                     </NavLink>
                   </li> */}
+
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-blue duration-100  '
+                      }
+                    >
+                      Home
+                    </NavLink>
+                  </li>
 
                   <li>
                     <NavLink
@@ -172,7 +189,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-primary-color duration-100 '
+                          : ' hover:text-blue duration-100 '
                       }
                     >
                       Asset List
@@ -186,7 +203,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-primary-color duration-100 '
+                          : ' hover:text-blue duration-100 '
                       }
                     >
                       Add Asset
@@ -201,7 +218,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color  duration-100  '
+                          : '  hover:text-blue  duration-100  '
                       }
                     >
                       All Requests
@@ -215,7 +232,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          : '  hover:text-blue duration-100  '
                       }
                     >
                       Custom Requests
@@ -229,7 +246,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          : '  hover:text-blue duration-100  '
                       }
                     >
                       Add an Employee
@@ -243,47 +260,25 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          : '  hover:text-blue duration-100  '
                       }
                     >
                       My Employee({myEmployee?.length})
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/HRhome"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? 'pending'
-                          : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
-                      }
-                    >
-                      HR Home
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/profile"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? 'pending'
-                          : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
-                      }
-                    >
-                      Profile
                     </NavLink>
                   </li>
 
                   {/* <p>{user.displayName}</p> */}
 
                   {user?.photoURL ? (
-                    <div className="avatar">
+                    <div
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="avatar cursor-pointer flex items-center"
+                    >
                       <div className="w-10 rounded-full">
-                        <img src={user.photoURL} alt="" />
+                        <img src={userData?.image} alt="" />
+                      </div>
+                      <div className="border-2 border-stone-500 pr-1 border-l-0 rounded-r-lg ">
+                        <IoMdArrowDropdown className="text-stone-500 text-lg mt-0.5" />
                       </div>
                     </div>
                   ) : (
@@ -292,12 +287,43 @@ const Nav = () => {
                     </div>
                   )}
 
-                  <button
-                    className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
+                  {isOpen && (
+                    <div className="bg-blue absolute w-[160px] right-0 px-2 py-6 rounded-md z-20 top-12 flex flex-col items-center">
+                      {user?.photoURL ? (
+                        <div
+                          onClick={() => setIsOpen(!isOpen)}
+                          className="avatar cursor-pointer "
+                        >
+                          <div className="w-14 rounded-full">
+                            <img src={user.photoURL} alt="" />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="w-14 rounded-full bg-transparent">
+                          {/* <img src={avatar} alt="asdsa" /> */}
+                        </div>
+                      )}
+
+                      <p className="text-xl font-semibold">
+                        {user.displayName}
+                      </p>
+
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsOpen(false)}
+                        className=" text-stone-200 px-4 py-1.5 rounded-md font-semibold text-sm mt-3 flex items-center gap-1"
+                      >
+                        <span>View Profile</span>
+                        <FaArrowRight />
+                      </Link>
+                      <button
+                        className="bg-stone-200 text-stone-800 px-4 py-1.5 rounded-md font-semibold text-sm mt-3"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
 
                   {/* {user?.email ? (
               <>
@@ -330,7 +356,7 @@ const Nav = () => {
                         ? 'pending'
                         : isActive
                         ? ' text-blue border-primary-color  pl-1  font-semibold'
-                        : 'font-semibold  hover:text-primary-color duration-100 '
+                        : 'font-semibold  hover:text-blue duration-100 '
                     }
                   >
                     Sign up
@@ -349,13 +375,27 @@ const Nav = () => {
                 <ul className="flex gap-4 items-center">
                   <li>
                     <NavLink
+                      to="/"
+                      className={({ isActive, isPending }) =>
+                        isPending
+                          ? 'pending'
+                          : isActive
+                          ? 'text-blue border-primary-color  pl-1  '
+                          : '  hover:text-blue duration-100  '
+                      }
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
                       to="/assets"
                       className={({ isActive, isPending }) =>
                         isPending
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-primary-color duration-100 '
+                          : ' hover:text-blue duration-100 '
                       }
                     >
                       My assets
@@ -369,7 +409,7 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-primary-color duration-100 '
+                          : ' hover:text-blue duration-100 '
                       }
                     >
                       My Team
@@ -384,10 +424,10 @@ const Nav = () => {
                           ? 'pending'
                           : isActive
                           ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          : '  hover:text-blue duration-100  '
                       }
                     >
-                      Request Assets
+                      Request for an Assets
                     </NavLink>
                   </li>
                   <li>
@@ -397,48 +437,24 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
+                          ? 'text-blue border-primary-color   pl-1  '
+                          : '  hover:text-blue duration-100  '
                       }
                     >
-                      Custom Request
+                      Make a Custom Request
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/employee-home"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? 'pending'
-                          : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
-                      }
-                    >
-                      Employee Home
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? 'pending'
-                          : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-primary-color duration-100  '
-                      }
-                    >
-                      Profile
-                    </NavLink>
-                  </li>
-
-                  <p>{user.displayName}</p>
 
                   {user?.photoURL ? (
-                    <div className="avatar">
+                    <div
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="avatar cursor-pointer flex items-center"
+                    >
                       <div className="w-10 rounded-full">
                         <img src={user.photoURL} alt="" />
+                      </div>
+                      <div className="border-2 border-stone-500 pr-1 border-l-0 rounded-r-lg ">
+                        <IoMdArrowDropdown className="text-stone-500 text-lg mt-0.5" />
                       </div>
                     </div>
                   ) : (
@@ -447,12 +463,43 @@ const Nav = () => {
                     </div>
                   )}
 
-                  <button
-                    className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
+                  {isOpen && (
+                    <div className="bg-blue absolute w-[160px] right-0 px-2 py-6 rounded-md z-20 top-12 flex flex-col items-center">
+                      {user?.photoURL ? (
+                        <div
+                          onClick={() => setIsOpen(!isOpen)}
+                          className="avatar cursor-pointer "
+                        >
+                          <div className="w-14 rounded-full">
+                            <img src={user.photoURL} alt="" />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="w-14 rounded-full bg-transparent">
+                          {/* <img src={avatar} alt="asdsa" /> */}
+                        </div>
+                      )}
+
+                      <p className="text-xl font-semibold">
+                        {user.displayName}
+                      </p>
+
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsOpen(false)}
+                        className=" text-stone-200 px-4 py-1.5 rounded-md font-semibold text-sm mt-3 flex items-center gap-1"
+                      >
+                        <span>View Profile</span>
+                        <FaArrowRight />
+                      </Link>
+                      <button
+                        className="bg-stone-200 text-stone-800 px-4 py-1.5 rounded-md font-semibold text-sm mt-3"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
 
                   {/* {user?.email ? (
               <>
@@ -485,7 +532,7 @@ const Nav = () => {
                         ? 'pending'
                         : isActive
                         ? ' text-blue border-primary-color  pl-1  font-semibold'
-                        : 'font-semibold  hover:text-primary-color duration-100 '
+                        : 'font-semibold  hover:text-blue duration-100 '
                     }
                   >
                     Sign up

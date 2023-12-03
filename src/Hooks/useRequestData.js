@@ -1,14 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
-import useAxios from './useAxios';
 import useAuth from './useAuth';
 import useHR from './useHR';
+import useAxiosSecure from './useAxiosSecure';
+// import { useState } from 'react';
 
 const useRequestData = (requestStatus, assetType, search, searchUser) => {
-  const axios = useAxios();
-  const { userData } = useHR();
-  const { user } = useAuth();
+  // const [pageNumber, setPageNumber] = useState(0);
+  // const itemPerPage = 10;
+  // const lastIndex = pageNumber * itemPerPage;
+  // const firstIndex = lastIndex - itemPerPage + 1;
 
-  const { data: requestData = [], refetch } = useQuery({
+  const axios = useAxiosSecure();
+  const { userData } = useHR();
+  const { user, loading } = useAuth();
+
+  const {
+    data: requestData = [],
+    refetch,
+    isLoading: reqDataLoading,
+  } = useQuery({
     queryKey: [
       'requestData',
       requestStatus,
@@ -17,7 +27,10 @@ const useRequestData = (requestStatus, assetType, search, searchUser) => {
       userData?.companyName,
       user?.email,
       searchUser,
+      // pageNumber,
+      // itemPerPage,
     ],
+    enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(
         `/requestForAsset?email=${
@@ -30,7 +43,18 @@ const useRequestData = (requestStatus, assetType, search, searchUser) => {
     },
   });
 
-  return { requestData, refetch };
+  return {
+    requestData,
+    refetch,
+    reqDataLoading,
+
+    // pageNumber,
+    // setPageNumber,
+    // itemPerPage,
+
+    // lastIndex,
+    // firstIndex,
+  };
 };
 
 export default useRequestData;

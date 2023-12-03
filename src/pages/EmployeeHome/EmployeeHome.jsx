@@ -12,7 +12,7 @@ import RequestedItems from '../HrHome/Section/RequestedItems';
 import HelmetTag from '../../components/HelmetTag';
 
 const EmployeeHome = () => {
-  const { customRequestData } = useCustomRequestData();
+  const { customRequestData, refetch } = useCustomRequestData();
   const { requestData } = useRequestData('', '', '', '');
   const { userData } = useHR();
 
@@ -76,8 +76,7 @@ const EmployeeHome = () => {
       {!userData.companyName ? (
         <NotFoundData>
           You're not yet part of a team. Please contact your HR for guidance and
-          support. They'll ensure you find the right fit for a more fulfilling
-          and collaborative experience
+          support.
         </NotFoundData>
       ) : (
         <>
@@ -85,8 +84,28 @@ const EmployeeHome = () => {
             <></>
           ) : (
             <>
-              <Title title="Custom request" />
-              <div className="max-w-7xl xl:mx-auto mx-2 my-8 border-t border-b border-stone-400">
+              <Title title="Custom Requests" />
+              <div className="  bg-stone-950 mx-4 md:mx-auto">
+                <div className="overflow-x-auto rounded-t-md">
+                  <table className="table rounded-t-md">
+                    {/* head */}
+                    <thead className="bg-stone-600 text-stone-100 ">
+                      <tr className="">
+                        <th>Asset Name</th>
+                        <th>Price</th>
+                        <th>Asset Image</th>
+                        <th>Asset Type</th>
+                        <th>Status</th>
+                        <th className="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    {customRequestData?.map((reqData, i) => (
+                      <SingleItem reqData={reqData} key={i} refetch={refetch} />
+                    ))}
+                  </table>
+                </div>
+              </div>
+              {/* <div className="max-w-7xl xl:mx-auto mx-2 my-8 border-t border-b border-stone-400">
                 <ul className="flex flex-col divide-y divide-stone-400">
                   {customRequestData.map((req, index) => (
                     <li key={index}>
@@ -94,14 +113,14 @@ const EmployeeHome = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </>
           )}
 
-          <Title title="Pending request" />
+          <Title title="Pending requests" />
           <PendingRequest />
 
-          <Title title="Monthly Request" />
+          <Title title="Monthly Requests" />
           <MonthlyRequest monthlyRequest={recentRequest} />
 
           <div className="pb-20">

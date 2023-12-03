@@ -3,9 +3,9 @@ import Title from '../../../../components/Title';
 
 const AboutSection = () => {
   return (
-    <>
+    <div className="lg:-mt-20">
       <Title title="About Us" />
-      <div className="pb-20 md:mt-14 lg:-mt-20 mx-4">
+      <div className="pb-20 md:mt-14  mx-4">
         <p className="text-stone-400 tracking-tight">
           Welcome to AssetMaster, where we redefine asset management with a
           commitment to excellence. Our mission is to empower individuals and
@@ -28,7 +28,7 @@ const AboutSection = () => {
           meet the unique needs of our clients.
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

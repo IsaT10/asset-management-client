@@ -13,7 +13,7 @@ const RequestedItems = ({ requestData }) => {
     return acc;
   }, []);
 
-  console.log(mostRequested);
+  console.log(mostRequested, 'jfvsjvfdsfdshfdshknfbsd');
 
   const sort = mostRequested.sort((a, b) => {
     // console.log(a, b);

@@ -2,16 +2,20 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAxios from '../../Hooks/useAxios';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../Hooks/useAuth';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Title from '../../components/Title';
 import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
 import { toast } from 'react-toastify';
 import HelmetTag from '../../components/HelmetTag';
+import assetImage from '../../assets/images/palaceholder.jpg';
 
 const CustomRequestForm = () => {
   const { user } = useAuth();
   const { userData } = useHR();
+  const inputRef = useRef(null);
+  const [image, setImage] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   const {
     register,
@@ -21,11 +25,19 @@ const CustomRequestForm = () => {
   } = useForm();
 
   const axios = useAxios();
+  const handleOnChangeImage = (e) => {
+    const imgFile = e.target.files[0];
+    console.log(imgFile);
+    setImage(imgFile);
+  };
+  const handleImage = () => {
+    inputRef.current.click();
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
     const { assetName, info, price, type, whyNeedThis } = data;
-    const imageFile = { image: data.assetImage[0] };
+    const imageFile = { image };
 
     console.log(imageFile);
 
@@ -52,6 +64,7 @@ const CustomRequestForm = () => {
       whyNeedThis,
       email: user?.email,
       status: 'Pending',
+      companyName: userData?.companyName,
     };
 
     const { data: customData } = await axios.post(
@@ -61,6 +74,7 @@ const CustomRequestForm = () => {
     reset();
     if (customData?.acknowledged) {
       toast.success('Request Send');
+      setImage(null);
     }
   };
   return (
@@ -79,33 +93,46 @@ const CustomRequestForm = () => {
             className=" w-full sm:p-0 px-8 "
           >
             <div className=" grid grid-cols-1 md:grid-cols-12 gap-10">
-              <div className="col-span-5 extraOutline p-4 bg-white w-full h-full row-span-2 m-auto rounded-md">
-                <div className="file_upload p-5 h-full relative border-4 border-dotted border-gray-300 rounded-lg">
-                  <svg
-                    className="text-blue w-24  mx-auto my-14"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              <div className="col-span-5  extraOutline  bg-white w-full h-full row-span-2 m-auto rounded-md">
+                <div
+                  onClick={handleImage}
+                  className="file_upload  relative rounded-lg"
+                >
+                  {image ? (
+                    <img
+                      className="w-full h-[383px] object-cover"
+                      src={URL.createObjectURL(image)}
+                      alt=""
                     />
-                  </svg>
+                  ) : (
+                    <>
+                      <svg
+                        className="text-blue w-24  mx-auto my-14"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
+                      </svg>
+                      <p className="text-center tracking-tight font-semibold text-3xl text-blue">
+                        Choose a Photo
+                      </p>
+                    </>
+                  )}
                   <div className="input_field flex flex-col w-max mx-auto text-center">
-                    <label>
-                      <input
-                        className="text-sm cursor-pointer w-48 "
-                        type="file"
-                        {...register('assetImage', { required: true })}
-                      />
-                      {/* <div class="text bg-blue text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-darkBlue">
-                    Select
-                  </div> */}
-                    </label>
+                    <input
+                      ref={inputRef}
+                      onChange={handleOnChangeImage}
+                      className="text-sm cursor-pointer w-48 hidden"
+                      type="file"
+                      // {...register('assetImage', { required: true })}
+                    />
                   </div>
                 </div>
               </div>

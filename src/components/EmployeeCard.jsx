@@ -1,6 +1,5 @@
 import { toast } from 'react-toastify';
 import useAxios from '../Hooks/useAxios';
-import useUsers from '../Hooks/useUsers';
 import { FaUserGear } from 'react-icons/fa6';
 import { RiAdminFill } from 'react-icons/ri';
 import useHR from '../Hooks/useHR';
@@ -13,6 +12,7 @@ const EmployeeCard = ({ employee, usersRefetch }) => {
       companyName: '',
       HR_id: userData?._id,
       members: userData?.members + 1,
+      companyLogo: '',
     });
 
     if (res?.data?.result.modifiedCount) {

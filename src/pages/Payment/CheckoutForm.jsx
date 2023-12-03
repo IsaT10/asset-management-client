@@ -13,6 +13,7 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
   const navigate = useNavigate();
   const axios = useAxios();
   const members = Number(userData?.package?.split(' ')[0]);
+  const [isPaymentLoading, setPaymentLoading] = useState(false);
 
   useEffect(() => {
     axios.post('/create-payment-intent', { price: usd }).then((res) => {
@@ -82,39 +83,66 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
         if (res.data.updateHR.modifiedCount) {
           toast.success('Success');
           refetch();
-          navigate('/HrHome');
+          navigate('/');
         }
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
-              },
-            },
-            invalid: {
-              color: '#9e2146',
-            },
-          },
+    <div
+      className="bg-stone-700 w-[600px] mx-auto "
+      style={{
+        padding: '3rem',
+      }}
+    >
+      <h4 className=" text-stone-100 text-2xl font-semibold  uppercase">
+        Pay : ${usd}
+      </h4>
+      <p className=" mb-10 text-white text-xl font-semibold">
+        Package : {userData?.package}
+      </p>
+      <div
+        style={{
+          maxWidth: '500px',
+          margin: '0 auto',
         }}
-      />
-      <button
-        className="bg-blue px-4 py-1.5 rounded-sm disabled:opacity-40 text-white font-semibold"
-        type="submit"
-        disabled={!stripe || !clientSecret}
       >
-        Pay
-      </button>
-      <p className="text-red-500 text-sm ">{err}</p>
-    </form>
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: 'block',
+            width: '100%',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <CardElement
+              className="card"
+              options={{
+                style: {
+                  base: {
+                    backgroundColor: 'white',
+                  },
+                },
+              }}
+            />
+            <button
+              className="pay-button"
+              type="submit"
+              disabled={!stripe || !clientSecret}
+            >
+              Pay
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

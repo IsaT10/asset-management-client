@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import useAxios from '../../Hooks/useAxios';
 import useCustomRequestData from '../../Hooks/useCustomRequestData';
+import { date } from '../../utils/date';
+import { toast } from 'react-toastify';
 
 const Modal = ({
   setShowModal,
@@ -18,6 +20,8 @@ const Modal = ({
   const [editable, setEditable] = useState(false);
   const { refetch } = useCustomRequestData();
   const axios = useAxios();
+  const { formattedDate } = date(requestDate);
+  console.log(requestDate);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,14 +79,14 @@ const Modal = ({
       imageUrl: res?.data?.data?.display_url,
       requestDate: date,
       whyNeedThis,
-      status: 'pending',
+      status: 'Pending',
     };
     if (res.data.success) {
       const menuRes = await axios.patch(`/custom-request/${_id}`, updateData);
 
       console.log(menuRes.data);
       if (menuRes.data.acknowledged) {
-        // toast.success(`${data.name} menu is updated`);
+        toast.success('Update Successfully');
         refetch();
         setShowModal(false);
       }
@@ -166,7 +170,9 @@ const Modal = ({
                 </p>
               )}
 
-              <p className="font-semibold text-stone-600">Request Date</p>
+              <p className="font-semibold text-stone-600">
+                Request Date: {formattedDate}
+              </p>
               <p>
                 <span className="font-semibold  text-stone-600">Status :</span>{' '}
                 <span

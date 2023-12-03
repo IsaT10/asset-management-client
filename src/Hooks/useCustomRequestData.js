@@ -8,7 +8,11 @@ const useCustomRequestData = () => {
   const { userData } = useHR();
   console.log(userData.role);
   const { user } = useAuth();
-  const { data: customRequestData = [], refetch } = useQuery({
+  const {
+    data: customRequestData = [],
+    refetch,
+    isLoading: customReqLoading,
+  } = useQuery({
     queryKey: [
       'customRequest',
       user?.email,
@@ -26,7 +30,7 @@ const useCustomRequestData = () => {
     },
   });
 
-  return { customRequestData, refetch };
+  return { customRequestData, refetch, customReqLoading };
 };
 
 export default useCustomRequestData;

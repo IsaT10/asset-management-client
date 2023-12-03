@@ -19,7 +19,7 @@ const MyTeam = () => {
 
   const runningMonth = new Date().getMonth() + 1;
 
-  const birthdayBoy = allMember?.filter(
+  const birthdayBoy = myTeamMember?.filter(
     (data) => new Date(data.dateOfBirth).getMonth() + 1 === runningMonth
   );
   //   const birthdayBoy = myTeamMember?.filter(
@@ -38,8 +38,11 @@ const MyTeam = () => {
           <Event birthdayBoy={birthdayBoy} />
           <Title title="Team Member" />
           <div className="grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-            {myTeamMember.map((data) => (
-              <div className="w-[320px] sm:w-[300px] md:w-[320px]  mx-auto rounded-sm border-2 border-stone-900 overflow-hidden shadow-lg">
+            {myTeamMember.map((data, i) => (
+              <div
+                key={i}
+                className="w-[320px] sm:w-[300px] md:w-[320px]  mx-auto rounded-sm border-2 border-stone-900 overflow-hidden shadow-lg"
+              >
                 <img
                   className="w-full h-64 object-cover "
                   src={data?.image}

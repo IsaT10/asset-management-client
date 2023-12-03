@@ -2,12 +2,17 @@ import { useQuery } from '@tanstack/react-query';
 import useAxios from './useAxios';
 import useAuth from './useAuth';
 import useHR from './useHR';
+import useAxiosSecure from './useAxiosSecure';
 
 const useAllAssets = (asc, stockStatus, assetType, search, limitedItem) => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const { userData } = useHR();
-  const { user } = useAuth();
-  const { data: allAssets = [], refetch } = useQuery({
+  const { user, loading } = useAuth();
+  const {
+    data: allAssets = [],
+    refetch,
+    isLoading: assetsLoading,
+  } = useQuery({
     queryKey: [
       'allAssets',
       asc,
@@ -18,6 +23,7 @@ const useAllAssets = (asc, stockStatus, assetType, search, limitedItem) => {
       limitedItem,
       userData?.email,
     ],
+    enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(
         `/allAssets?email=${
@@ -26,13 +32,12 @@ const useAllAssets = (asc, stockStatus, assetType, search, limitedItem) => {
           asc ? 'asc' : 'dsc'
         }&stockStatus=${stockStatus}&assetType=${assetType}&search=${search}&limitedItem=${limitedItem}`
       );
-      console.log(res.data);
 
       return res.data;
     },
   });
 
-  return { allAssets, refetch };
+  return { allAssets, refetch, assetsLoading };
 };
 
 export default useAllAssets;

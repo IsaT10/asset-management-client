@@ -6,11 +6,12 @@ import Title from '../../components/Title';
 import useAllAssets from '../../Hooks/useAllAssets';
 import { Link } from 'react-router-dom';
 import HelmetTag from '../../components/HelmetTag';
+import { FaUserGear } from 'react-icons/fa6';
+import { RiAdminFill } from 'react-icons/ri';
 
 const AddAnEmployee = () => {
   const { usersRefetch, isEmployee } = useUsers('');
   const { allAssets } = useAllAssets('', '', '', '', '');
-  console.log(allAssets);
   const axios = useAxios();
   const { userData, refetch } = useHR();
 
@@ -21,6 +22,7 @@ const AddAnEmployee = () => {
       companyName: userData.companyName,
       HR_id: userData?._id,
       members: userData?.members - 1,
+      companyLogo: userData?.companyLogo,
     });
 
     console.log(res.data);
@@ -88,7 +90,7 @@ const AddAnEmployee = () => {
         </div>
       </div>
 
-      <Title title="Unassigned Members " />
+      <Title title="Available Members " />
 
       <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
         <div className="overflow-x-auto rounded-t-md">
@@ -122,11 +124,11 @@ const AddAnEmployee = () => {
                       alt=""
                     />
                   </td>
-                  <td className=" font-josep font-semibold text-stone-200 text-center">
+                  <td className=" font-semibold text-stone-200 text-center">
                     {user?.name}
                   </td>
-                  <td className="text-stone-200 font-semibold text-center">
-                    {user?.approvalDate ? <p>{user?.approvalDate}</p> : ''}
+                  <td className="text-stone-200 font-semibold  flex  justify-center mt-16">
+                    <FaUserGear className="text-center" />
                   </td>
 
                   <td className=" text-center">

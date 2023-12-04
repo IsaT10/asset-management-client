@@ -48,7 +48,7 @@ const SingleAsset = ({ list, refetch }) => {
       toast.success('Updated Product');
       setUpdate(false);
     }
-    console.log(res.data);
+    // console.log(res.data);
   };
 
   return (

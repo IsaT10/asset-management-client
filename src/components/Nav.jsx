@@ -1,26 +1,29 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useHR from '../Hooks/useHR';
 import useAuth from '../Hooks/useAuth';
 import useUsers from '../Hooks/useUsers';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import avatar from '../assets/images/avatar.png';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { FaArrowRight } from 'react-icons/fa';
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { userData } = useHR();
+  const navigate = useNavigate();
   const { isEmployee } = useUsers(userData?.companyName);
   const myEmployee = isEmployee.filter((user) => user.role === 'employee');
   const { user, logOut } = useAuth();
 
   const handleLogout = () => {
     logOut();
+    navigate('/');
     toast.success('Successfully logged out');
   };
   return (
     <div className="px-2 lg:px-0 py-2 text-stone-200">
       <div className="navbar  max-w-7xl mx-auto flex justify-between">
-        <div className=" flex w-full md:w-44 justify-between items-center">
+        <div className=" flex w-full lg:w-44 justify-between items-center">
           <div className="flex  gap-2 md:gap-2 lg:gap-5 items-center">
             <Link to="/">
               {userData?.companyLogo ? (
@@ -38,7 +41,7 @@ const Nav = () => {
           </div>
 
           <div className="dropdown ">
-            <label tabIndex={0} className="btn  btn-ghost md:hidden ">
+            <label tabIndex={0} className="btn  btn-ghost lg:hidden ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -54,44 +57,149 @@ const Nav = () => {
                 />
               </svg>
             </label>
-            <ul
+
+            {!userData?.role ? (
+              <ul
+                tabIndex={0}
+                className="menu menu-compact dropdown-content -left-20 mt-3 p-2 shadow  w-36 mr-10 z-40 text-white rounded-md  bg-blue"
+              >
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/signupAsEmployee">Join as Employee</Link>
+                </li>
+                <li>
+                  <Link to="/signupAsHR">Join As HR</Link>
+                </li>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              </ul>
+            ) : (
+              <>
+                {userData?.role === 'HR' ? (
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-compact dropdown-content -left-20 mt-3 p-2 shadow  w-36 mr-10 z-40 text-white rounded-md  bg-blue"
+                  >
+                    <li>
+                      <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                      <Link to="/assetsList">Asset List</Link>
+                    </li>
+                    <li>
+                      <Link to="/addAnAsset">Add Asset</Link>
+                    </li>
+                    <li>
+                      <Link to="/allRequest">All Requests</Link>
+                    </li>
+                    <li>
+                      <Link to="/allCustomRequest">Custom Requests</Link>
+                    </li>
+                    <li>
+                      <Link to="/addEmployee">Add an Employee</Link>
+                    </li>
+                    <li>
+                      <Link to="/myEmployee">My Employee</Link>
+                    </li>
+
+                    {user?.email ? (
+                      <li>
+                        <Link onClick={handleLogout}>Logout</Link>
+                      </li>
+                    ) : (
+                      <>
+                        <li>
+                          <Link to="/signup">Sign up</Link>
+                        </li>
+                        <li>
+                          <Link to="/login">login</Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                ) : (
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-compact dropdown-content -left-20 mt-3 p-2 shadow  w-36 mr-10 z-40 text-white rounded-md  bg-blue"
+                  >
+                    <li>
+                      <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                      <Link to="/myTeam">My Team</Link>
+                    </li>
+                    <li>
+                      <Link to="/requestForAsset"> Request for an Assets</Link>
+                    </li>
+                    <li>
+                      <Link to="/custom-request">Make a Custom Request</Link>
+                    </li>
+
+                    {user?.email ? (
+                      <li>
+                        <Link onClick={handleLogout}>Logout</Link>
+                      </li>
+                    ) : (
+                      <>
+                        <li>
+                          <Link to="/signup">Sign up</Link>
+                        </li>
+                        <li>
+                          <Link to="/login">login</Link>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                )}
+              </>
+            )}
+            {/* <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content -left-20 mt-3 p-2 shadow  w-36 mr-10 z-40 text-white rounded-md  bg-primary-color"
+              className="menu menu-compact dropdown-content -left-20 mt-3 p-2 shadow  w-36 mr-10 z-40 text-white rounded-md  bg-blue"
             >
               <li>
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/addblog">Add Blog</Link>
+                <Link to="/assetsList">Asset List</Link>
               </li>
               <li>
-                <Link to="/featuredblogs">Featured Blogs</Link>
+                <Link to="/addAnAsset">Add Asset</Link>
               </li>
               <li>
-                <Link to="/allblogs">All Blogs</Link>
+                <Link to="/allRequest">All Requests</Link>
               </li>
               <li>
-                <Link to="/wishlist">Wishlist</Link>
+                <Link to="/allCustomRequest">Custom Requests</Link>
+              </li>
+              <li>
+                <Link to="/addEmployee">Add an Employee</Link>
+              </li>
+              <li>
+                <Link to="/myEmployee">My Employee</Link>
               </li>
 
-              {/* {user?.email ? (
+              {user?.email ? (
                 <li>
                   <Link onClick={handleLogout}>Logout</Link>
                 </li>
-              ) : ( */}
-              <>
-                <li>
-                  <Link to="/signup">Sign up</Link>
-                </li>
-                <li>
-                  <Link to="/login">login</Link>
-                </li>
-              </>
-              {/* )} */}
-            </ul>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/signup">Sign up</Link>
+                  </li>
+                  <li>
+                    <Link to="/login">login</Link>
+                  </li>
+                </>
+              )}
+            </ul> */}
           </div>
         </div>
-        <div className=" hidden md:flex relative">
+        <div className=" hidden lg:flex relative">
           {!userData?.role ? (
             <ul className="flex gap-4 items-center">
               <li>
@@ -101,8 +209,8 @@ const Nav = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'text-blue border-primary-color  pl-1  font-semibold'
-                      : 'font-semibold  hover:text-blue duration-100  '
+                      ? 'text-blue  tracking-tight  font-semibold'
+                      : ' hover:text-blue duration-100 tracking-tight font-semibold   '
                   }
                 >
                   Home
@@ -116,8 +224,8 @@ const Nav = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'text-blue border-primary-color   pl-1  font-semibold'
-                      : 'font-semibold hover:text-blue duration-100 '
+                      ? 'text-blue    tracking-tight font-semibold '
+                      : ' hover:text-blue duration-100 tracking-tight font-semibold  '
                   }
                 >
                   Join as Employee
@@ -130,8 +238,8 @@ const Nav = () => {
                     isPending
                       ? 'pending'
                       : isActive
-                      ? 'text-blue border-primary-color   pl-1  font-semibold'
-                      : 'font-semibold hover:text-blue duration-100 '
+                      ? 'text-blue   tracking-tight font-semibold '
+                      : ' hover:text-blue duration-100 tracking-tight font-semibold  '
                   }
                 >
                   Join as HR/Admin
@@ -150,7 +258,7 @@ const Nav = () => {
           ) : (
             <>
               {userData?.role === 'HR' ? (
-                <ul className="flex gap-4 items-center">
+                <ul className="flex gap-3 items-center">
                   {/* <li>
                     <NavLink
                       to="/"
@@ -158,8 +266,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       Home
@@ -173,8 +281,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue    tracking-tight font-semibold   '
+                          : '  hover:text-blue tracking-tight font-semibold duration-100  '
                       }
                     >
                       Home
@@ -188,8 +296,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-blue duration-100 '
+                          ? 'text-blue  tracking-tight font-semibold     '
+                          : ' hover:text-blue duration-100 tracking-tight font-semibold  '
                       }
                     >
                       Asset List
@@ -202,8 +310,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-blue duration-100 '
+                          ? 'text-blue tracking-tight font-semibold    '
+                          : ' hover:text-blue duration-100 tracking-tight font-semibold  '
                       }
                     >
                       Add Asset
@@ -217,8 +325,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue  duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue tracking-tight font-semibold  duration-100  '
                       }
                     >
                       All Requests
@@ -231,8 +339,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       Custom Requests
@@ -245,8 +353,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       Add an Employee
@@ -259,8 +367,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       My Employee({myEmployee?.length})
@@ -269,7 +377,7 @@ const Nav = () => {
 
                   {/* <p>{user.displayName}</p> */}
 
-                  {user?.photoURL ? (
+                  {userData?.image ? (
                     <div
                       onClick={() => setIsOpen(!isOpen)}
                       className="avatar cursor-pointer flex items-center"
@@ -282,14 +390,22 @@ const Nav = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="w-10 rounded-full bg-transparent">
-                      {/* <img src={avatar} alt="asdsa" /> */}
+                    <div
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="avatar cursor-pointer flex items-center"
+                    >
+                      <div className="w-10 rounded-full bg-transparent">
+                        <img src={avatar} alt="asdsa" />
+                      </div>
+                      <div className="border-2 border-stone-500 pr-1 border-l-0 rounded-r-lg ">
+                        <IoMdArrowDropdown className="text-stone-500 text-lg mt-0.5" />
+                      </div>
                     </div>
                   )}
 
                   {isOpen && (
                     <div className="bg-blue absolute w-[160px] right-0 px-2 py-6 rounded-md z-20 top-12 flex flex-col items-center">
-                      {user?.photoURL ? (
+                      {userData?.image ? (
                         <div
                           onClick={() => setIsOpen(!isOpen)}
                           className="avatar cursor-pointer "
@@ -300,13 +416,11 @@ const Nav = () => {
                         </div>
                       ) : (
                         <div className="w-14 rounded-full bg-transparent">
-                          {/* <img src={avatar} alt="asdsa" /> */}
+                          <img src={avatar} alt="asdsa" />
                         </div>
                       )}
 
-                      <p className="text-xl font-semibold">
-                        {user.displayName}
-                      </p>
+                      <p className="text-xl font-semibold">{userData?.name}</p>
 
                       <Link
                         to="/profile"
@@ -355,8 +469,8 @@ const Nav = () => {
                       isPending
                         ? 'pending'
                         : isActive
-                        ? ' text-blue border-primary-color  pl-1  font-semibold'
-                        : 'font-semibold  hover:text-blue duration-100 '
+                        ? ' text-blue  tracking-tight font-semibold   font-semibold'
+                        : 'font-semibold  hover:text-blue duration-100 tracking-tight font-semibold  '
                     }
                   >
                     Sign up
@@ -380,8 +494,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       Home
@@ -394,8 +508,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-blue duration-100 '
+                          ? 'text-blue    '
+                          : ' hover:text-blue duration-100 tracking-tight font-semibold  '
                       }
                     >
                       My assets
@@ -408,8 +522,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color   pl-1  '
-                          : ' hover:text-blue duration-100 '
+                          ? 'text-blue    '
+                          : ' hover:text-blue duration-100 tracking-tight font-semibold  '
                       }
                     >
                       My Team
@@ -423,8 +537,8 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color  pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue  tracking-tight font-semibold   '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       Request for an Assets
@@ -437,52 +551,58 @@ const Nav = () => {
                         isPending
                           ? 'pending'
                           : isActive
-                          ? 'text-blue border-primary-color   pl-1  '
-                          : '  hover:text-blue duration-100  '
+                          ? 'text-blue    '
+                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
                       }
                     >
                       Make a Custom Request
                     </NavLink>
                   </li>
 
-                  {user?.photoURL ? (
+                  {userData?.image ? (
                     <div
                       onClick={() => setIsOpen(!isOpen)}
                       className="avatar cursor-pointer flex items-center"
                     >
                       <div className="w-10 rounded-full">
-                        <img src={user.photoURL} alt="" />
+                        <img src={userData?.image} alt="" />
                       </div>
                       <div className="border-2 border-stone-500 pr-1 border-l-0 rounded-r-lg ">
                         <IoMdArrowDropdown className="text-stone-500 text-lg mt-0.5" />
                       </div>
                     </div>
                   ) : (
-                    <div className="w-10 rounded-full bg-transparent">
-                      {/* <img src={avatar} alt="asdsa" /> */}
+                    <div
+                      onClick={() => setIsOpen(!isOpen)}
+                      className="avatar cursor-pointer flex items-center"
+                    >
+                      <div className="w-10 rounded-full bg-transparent">
+                        <img src={avatar} alt="avatar" />
+                      </div>
+                      <div className="border-2 border-stone-500 pr-1 border-l-0 rounded-r-lg ">
+                        <IoMdArrowDropdown className="text-stone-500 text-lg mt-0.5" />
+                      </div>
                     </div>
                   )}
 
                   {isOpen && (
                     <div className="bg-blue absolute w-[160px] right-0 px-2 py-6 rounded-md z-20 top-12 flex flex-col items-center">
-                      {user?.photoURL ? (
+                      {userData?.image ? (
                         <div
                           onClick={() => setIsOpen(!isOpen)}
                           className="avatar cursor-pointer "
                         >
                           <div className="w-14 rounded-full">
-                            <img src={user.photoURL} alt="" />
+                            <img src={userData.image} alt="" />
                           </div>
                         </div>
                       ) : (
                         <div className="w-14 rounded-full bg-transparent">
-                          {/* <img src={avatar} alt="asdsa" /> */}
+                          <img src={avatar} alt="avatar" />
                         </div>
                       )}
 
-                      <p className="text-xl font-semibold">
-                        {user.displayName}
-                      </p>
+                      <p className="text-xl font-semibold">{userData?.name}</p>
 
                       <Link
                         to="/profile"
@@ -531,8 +651,8 @@ const Nav = () => {
                       isPending
                         ? 'pending'
                         : isActive
-                        ? ' text-blue border-primary-color  pl-1  font-semibold'
-                        : 'font-semibold  hover:text-blue duration-100 '
+                        ? ' text-blue  tracking-tight font-semibold   font-semibold'
+                        : 'font-semibold  hover:text-blue duration-100 tracking-tight font-semibold  '
                     }
                   >
                     Sign up

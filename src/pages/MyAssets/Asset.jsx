@@ -11,7 +11,6 @@ const Asset = ({ reqData, refetch }) => {
 
   const handleCancelRequest = async () => {
     const res = await axios.delete(`/requestForAsset/${reqData?._id}`);
-    console.log(res?.data);
     if (res.data.deletedCount) {
       refetch();
       toast.error('Cancel Request');
@@ -28,7 +27,7 @@ const Asset = ({ reqData, refetch }) => {
       toast.success('Returned Product');
       refetch();
     }
-    console.log(res?.data?.updateProductQuantity?.modifiedCount);
+    // console.log(res?.data?.updateProductQuantity?.modifiedCount);
   };
   return (
     <tbody className="">

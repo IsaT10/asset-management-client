@@ -20,7 +20,7 @@ const EmployeeCard = ({ employee, usersRefetch }) => {
       toast.success('Remove Employee from team');
       usersRefetch();
     }
-    console.log(res.data);
+    // console.log(res.data);
   };
   return (
     <div className="w-[320px] sm:w-[300px] md:w-[320px]  mx-auto rounded-sm border-2 border-stone-900 overflow-hidden shadow-lg">

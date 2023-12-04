@@ -21,21 +21,16 @@ const Modal = ({
   const { refetch } = useCustomRequestData();
   const axios = useAxios();
   const { formattedDate } = date(requestDate);
-  console.log(requestDate);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('sdsadsadsadasdasd');
     const assetName = e.target.assetName.value;
     const price = e.target.price.value;
     const type = e.target.type.value;
     const info = e.target.info.value;
     const whyNeedThis = e.target.whyNeedThis.value;
     // const imageUrl = e.target.imageUrl.files[0];
-    console.log({ assetName, price, type, info, whyNeedThis });
     const date = new Date();
-    console.log(date);
-    console.log(email);
 
     const imageFile = { image: e.target.imageUrl.files[0] };
     if (imageFile.image === undefined) {
@@ -51,7 +46,6 @@ const Modal = ({
       };
       const { data } = await axios.patch(`/custom-request/${_id}`, updateData);
 
-      console.log(data);
       if (data.acknowledged) {
         alert('update oice');
         refetch();
@@ -70,7 +64,6 @@ const Modal = ({
       }
     );
 
-    console.log(res?.data?.data?.display_url);
     const updateData = {
       assetName,
       info,
@@ -84,14 +77,12 @@ const Modal = ({
     if (res.data.success) {
       const menuRes = await axios.patch(`/custom-request/${_id}`, updateData);
 
-      console.log(menuRes.data);
       if (menuRes.data.acknowledged) {
         toast.success('Update Successfully');
         refetch();
         setShowModal(false);
       }
     }
-    console.log(res?.data);
 
     // const res = await axios.post(
     //   'https://api.imgbb.com/1/upload?key=b9e7fd7e7e867150e5dff9ee884e9359',

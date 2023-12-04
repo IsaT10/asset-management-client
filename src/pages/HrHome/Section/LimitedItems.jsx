@@ -6,8 +6,6 @@ import NotFoundData from '../../../components/NotFoundData';
 const LimitedItems = () => {
   const [limitedItem, setLimitedItem] = useState(true);
   const { allAssets, refetch } = useAllAssets('', '', '', '', limitedItem);
-  console.log(allAssets);
-  // refetch();
 
   return (
     <>

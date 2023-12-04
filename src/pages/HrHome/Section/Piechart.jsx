@@ -70,12 +70,12 @@ const Piechart = ({ requestData }) => {
         </PieChart>
       </ResponsiveContainer>
 
-      <div className="flex gap-5 justify-center text-stone-200 font-semibold">
-        <div className="flex items-center gap-2">
+      <div className="flex sm:flex-row flex-col items-center gap-3 sm:gap-5 justify-center text-stone-200 font-semibold">
+        <div className="flex items-center text-sm md:text-base gap-2">
           <p>Returnable</p>
           <span className="py-1.5 px-8 bg-[#0088FE]"></span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center text-sm md:text-base gap-2">
           <p>Non Returnable</p>
           <span className="py-1.5 px-8 bg-[#13415e]"></span>
         </div>

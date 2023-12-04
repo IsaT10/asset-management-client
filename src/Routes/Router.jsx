@@ -98,9 +98,9 @@ const router = createBrowserRouter([
       {
         path: '/addAnAsset',
         element: (
-          <PrivateRoute>
+          <HrRoute>
             <AddAsset />
-          </PrivateRoute>
+          </HrRoute>
         ),
       },
       {

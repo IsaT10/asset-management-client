@@ -13,7 +13,7 @@ const GoogleLogIn = () => {
 
   const handleGoogleSignIn = () => {
     googleSignIn().then(async (result) => {
-      console.log(result.user.photoURL);
+      // console.log(result.user.photoURL);
       const userInfo = {
         name: result?.user?.displayName,
         email: result?.user?.email,
@@ -23,7 +23,7 @@ const GoogleLogIn = () => {
       };
       const res = await axios.post('/users', userInfo);
 
-      console.log(res.data);
+      // console.log(res.data);
       toast.success('Successfully signup');
       navigate(from, { replace: true });
     });

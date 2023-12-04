@@ -29,12 +29,14 @@ const Profile = () => {
   };
 
   const onSubmit = async (data) => {
-    // console.log(data);
-
     const imageFile = { image };
     // console.log(imageFile.image);
     if (!imageFile.image) {
-      const res = await axios.patch(`/users/${userData._id}`, data);
+      const res = await axios.patch(`/users/${userData._id}`, {
+        ...data,
+        email: userData?.email,
+      });
+
       if (res?.data?.result?.modifiedCount) {
         refetch();
         toast.success('Update Profile');

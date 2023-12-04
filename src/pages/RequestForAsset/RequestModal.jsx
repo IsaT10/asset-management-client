@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
 import useHR from '../../Hooks/useHR';
+import { toast } from 'react-toastify';
 
 const RequestModal = ({ setShowModal, list: { productName, type } }) => {
   const [note, setNote] = useState('');
@@ -23,8 +24,8 @@ const RequestModal = ({ setShowModal, list: { productName, type } }) => {
     };
 
     const { data } = await axios.post('/requestForAsset', requestedData);
-    console.log(data);
     if (data.acknowledged) {
+      toast.success('Request send');
       setShowModal(false);
     }
   };
@@ -35,7 +36,7 @@ const RequestModal = ({ setShowModal, list: { productName, type } }) => {
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="textarea textarea-bordered w-3/4"
+            className="textarea text-stone-200 textarea-bordered w-3/4"
             placeholder="Additional Note"
           ></textarea>
 

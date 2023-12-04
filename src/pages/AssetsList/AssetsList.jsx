@@ -37,7 +37,7 @@ const AssetsList = () => {
         {asc ? 'High to Low' : 'Low to High'}
       </button>
 
-      <div className="flex justify-between items-start">
+      <div className=" flex md:flex-row flex-col md:gap-1 gap-7 justify-between items-start">
         <div className="flex flex-col items-start gap-2">
           <label className="text-stone-300 text-sm font-semibold">
             Search By Name

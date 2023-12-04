@@ -10,9 +10,11 @@ import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
 import RequestedItems from '../HrHome/Section/RequestedItems';
 import HelmetTag from '../../components/HelmetTag';
+import Loader from '../../components/Loader';
 
 const EmployeeHome = () => {
-  const { customRequestData, refetch } = useCustomRequestData();
+  const { customRequestData, refetch, customReqLoading } =
+    useCustomRequestData();
   const { requestData } = useRequestData('', '', '', '');
   const { userData } = useHR();
 
@@ -38,7 +40,7 @@ const EmployeeHome = () => {
     }
   });
 
-  console.log(recentRequest);
+  // console.log(recentRequest);
 
   // const arr = [];
   // const frequnetly = requestData.filter((item) => {
@@ -80,32 +82,40 @@ const EmployeeHome = () => {
         </NotFoundData>
       ) : (
         <>
-          {!customRequestData.length ? (
-            <></>
+          {customReqLoading ? (
+            <Loader className="h-[80vh]" />
           ) : (
             <>
-              <Title title="Custom Requests" />
-              <div className="  bg-stone-950 mx-4 md:mx-auto">
-                <div className="overflow-x-auto rounded-t-md">
-                  <table className="table rounded-t-md">
-                    {/* head */}
-                    <thead className="bg-stone-600 text-stone-100 ">
-                      <tr className="">
-                        <th>Asset Name</th>
-                        <th>Price</th>
-                        <th>Asset Image</th>
-                        <th>Asset Type</th>
-                        <th>Status</th>
-                        <th className="text-center">Action</th>
-                      </tr>
-                    </thead>
-                    {customRequestData?.map((reqData, i) => (
-                      <SingleItem reqData={reqData} key={i} refetch={refetch} />
-                    ))}
-                  </table>
-                </div>
-              </div>
-              {/* <div className="max-w-7xl xl:mx-auto mx-2 my-8 border-t border-b border-stone-400">
+              {!customRequestData.length ? (
+                <></>
+              ) : (
+                <>
+                  <Title title="Custom Requests" />
+                  <div className="  bg-stone-950 mx-4 md:mx-auto">
+                    <div className="overflow-x-auto rounded-t-md">
+                      <table className="table rounded-t-md">
+                        {/* head */}
+                        <thead className="bg-stone-600 text-stone-100 ">
+                          <tr className="">
+                            <th>Asset Name</th>
+                            <th>Price</th>
+                            <th>Asset Image</th>
+                            <th>Asset Type</th>
+                            <th>Status</th>
+                            <th className="text-center">Action</th>
+                          </tr>
+                        </thead>
+                        {customRequestData?.map((reqData, i) => (
+                          <SingleItem
+                            reqData={reqData}
+                            key={i}
+                            refetch={refetch}
+                          />
+                        ))}
+                      </table>
+                    </div>
+                  </div>
+                  {/* <div className="max-w-7xl xl:mx-auto mx-2 my-8 border-t border-b border-stone-400">
                 <ul className="flex flex-col divide-y divide-stone-400">
                   {customRequestData.map((req, index) => (
                     <li key={index}>
@@ -114,19 +124,33 @@ const EmployeeHome = () => {
                   ))}
                 </ul>
               </div> */}
+                </>
+              )}
+
+              <Title title="Pending requests" />
+              <PendingRequest />
+
+              <Title title="Monthly Requests" />
+              {monthlyRequest?.length ? (
+                <MonthlyRequest monthlyRequest={recentRequest} />
+              ) : (
+                <NotFoundData className="h-[40vh]">
+                  No Data Available!
+                </NotFoundData>
+              )}
+
+              <div className="pb-20">
+                <Title title="Frequently Requested Items" />
+                {requestData?.length ? (
+                  <RequestedItems requestData={requestData} />
+                ) : (
+                  <NotFoundData className="h-[40vh]">
+                    No Data Available!
+                  </NotFoundData>
+                )}
+              </div>
             </>
           )}
-
-          <Title title="Pending requests" />
-          <PendingRequest />
-
-          <Title title="Monthly Requests" />
-          <MonthlyRequest monthlyRequest={recentRequest} />
-
-          <div className="pb-20">
-            <Title title="Most Requested Items" />
-            <RequestedItems requestData={requestData} />
-          </div>
         </>
       )}
     </div>

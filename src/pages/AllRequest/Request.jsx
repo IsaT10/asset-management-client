@@ -20,16 +20,16 @@ const Request = ({ reqData, refetch }) => {
 
       refetch();
     }
-    console.log(res.data);
+    // console.log(res.data);
   };
 
   const handleReject = async (id) => {
-    console.log(id);
+    // console.log(id);
     const res = await axios.patch(`/requestForAsset/${id}`, {
       status: 'Rejected',
     });
 
-    console.log(res.data.result);
+    // console.log(res.data.result);
 
     if (res?.data?.result?.modifiedCount) {
       toast.warning('Reject request');

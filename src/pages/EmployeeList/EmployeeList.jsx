@@ -7,7 +7,6 @@ const EmployeeList = () => {
   const { userData } = useHR();
   const { isEmployee, usersRefetch } = useUsers(userData?.companyName);
   const myEmployee = isEmployee.filter((user) => user.role === 'employee');
-  console.log(myEmployee);
   return (
     <div className="">
       <HelmetTag title="Employees " />

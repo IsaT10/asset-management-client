@@ -1,4 +1,3 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAxios from '../../Hooks/useAxios';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../Hooks/useAuth';
@@ -8,14 +7,12 @@ import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
 import { toast } from 'react-toastify';
 import HelmetTag from '../../components/HelmetTag';
-import assetImage from '../../assets/images/palaceholder.jpg';
 
 const CustomRequestForm = () => {
   const { user } = useAuth();
   const { userData } = useHR();
   const inputRef = useRef(null);
   const [image, setImage] = useState(null);
-  const [edit, setEdit] = useState(false);
 
   const {
     register,
@@ -27,7 +24,7 @@ const CustomRequestForm = () => {
   const axios = useAxios();
   const handleOnChangeImage = (e) => {
     const imgFile = e.target.files[0];
-    console.log(imgFile);
+    // console.log(imgFile);
     setImage(imgFile);
   };
   const handleImage = () => {
@@ -35,11 +32,11 @@ const CustomRequestForm = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     const { assetName, info, price, type, whyNeedThis } = data;
     const imageFile = { image };
 
-    console.log(imageFile);
+    // console.log(imageFile);
 
     const res = await axios.post(
       'https://api.imgbb.com/1/upload?key=b9e7fd7e7e867150e5dff9ee884e9359',
@@ -49,10 +46,10 @@ const CustomRequestForm = () => {
       }
     );
 
-    console.log(res.data.data.display_url);
+    // console.log(res.data.data.display_url);
     const imageUrl = res.data.data.display_url;
     const date = new Date();
-    console.log(date);
+    // console.log(date);
 
     const requestData = {
       assetName,
@@ -90,10 +87,10 @@ const CustomRequestForm = () => {
           <Title title="Custom Request" />
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className=" w-full sm:p-0 px-8 "
+            className=" w-full sm:p-0 px-3 md:px-8 "
           >
-            <div className=" grid grid-cols-1 md:grid-cols-12 gap-10">
-              <div className="col-span-5  extraOutline  bg-white w-full h-full row-span-2 m-auto rounded-md">
+            <div className=" grid grid-cols-1 md:grid-cols-12 md:gap-10">
+              <div className="col-span-12 md:col-span-5  extraOutline  bg-white w-full h-full row-span-2 m-auto rounded-md">
                 <div
                   onClick={handleImage}
                   className="file_upload  relative rounded-lg"
@@ -136,7 +133,7 @@ const CustomRequestForm = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-span-7 grid gap-8 grid-cols-2 ">
+              <div className="col-span-12 md:col-span-7 grid gap-8 grid-cols-2 ">
                 <div className="flex flex-col gap-1.5">
                   <label className="font-semibold text-sm text-stone-200">
                     Asset Name
@@ -212,7 +209,7 @@ const CustomRequestForm = () => {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col gap-1.5 col-start-6 col-end-13">
+              <div className="flex flex-col col-span-12 gap-1.5 md:col-start-6 md:col-end-13">
                 <label className="font-semibold text-sm text-stone-200">
                   Additional information
                 </label>

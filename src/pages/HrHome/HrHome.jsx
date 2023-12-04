@@ -60,7 +60,9 @@ const HrHome = () => {
           ) : (
             <NotFoundData className="h-[40vh]">No Data Available!</NotFoundData>
           )}
-          <Title title=" Limited Stock Assets" />
+          <div className="mt-20">
+            <Title title=" Limited Stock Assets" />
+          </div>
           <LimitedItems />
           <Title title="Employee Request Analysis" />
           {requestData?.length ? (
@@ -68,7 +70,9 @@ const HrHome = () => {
           ) : (
             <NotFoundData className="h-[40vh]">No Data Available!</NotFoundData>
           )}
-          <Title title="Top Requesters" />
+          <div className="mt-20">
+            <Title title="Top Requesters" />
+          </div>
           {requestData?.length ? (
             <TopRequester requestData={requestData} />
           ) : (

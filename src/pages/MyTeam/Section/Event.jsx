@@ -1,11 +1,7 @@
-import { date } from '../../../utils/date';
-
 const Event = ({ birthdayBoy }) => {
   return (
     <div className="grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       {birthdayBoy.map((data, i) => {
-        console.log(data);
-
         const remainigDay =
           new Date(data.dateOfBirth).getDate() + 1 - (new Date().getDate() + 1);
         return (

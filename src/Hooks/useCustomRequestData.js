@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import useAxios from './useAxios';
 import useAuth from './useAuth';
 import useHR from './useHR';
+import useAxiosSecure from './useAxiosSecure';
 
 const useCustomRequestData = () => {
-  const axios = useAxios();
+  const axios = useAxiosSecure();
   const { userData } = useHR();
-  console.log(userData.role);
-  const { user } = useAuth();
+  // console.log(userData.role);
+  const { user, loading } = useAuth();
   const {
     data: customRequestData = [],
     refetch,
@@ -19,6 +20,7 @@ const useCustomRequestData = () => {
       userData?.companyName,
       userData?.role,
     ],
+    enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(
         `/custom-request?email=${

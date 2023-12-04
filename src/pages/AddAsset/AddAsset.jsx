@@ -21,7 +21,7 @@ const AddAsset = () => {
   const date = new Date();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     const productsData = {
       productName: data.productName,
       type: data.type,

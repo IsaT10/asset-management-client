@@ -12,8 +12,6 @@ const RequestForAsset = () => {
   const [search, setSearch] = useState('');
   const { userData } = useHR();
   const { allAssets } = useAllAssets('', stockStatus, assetType, search, '');
-  console.log(allAssets);
-  console.log(search);
   const matchedData = allAssets.filter(
     (asset) => asset.companyName === userData.companyName
   );
@@ -30,7 +28,7 @@ const RequestForAsset = () => {
         <>
           {' '}
           <Title title="Assets List" />
-          <div className="flex justify-between items-start">
+          <div className="flex md:flex-row flex-col md:gap-1 gap-7 justify-between items-start">
             <div className="flex flex-col items-start gap-2">
               <label className="text-stone-300 text-sm font-semibold">
                 Search By Name

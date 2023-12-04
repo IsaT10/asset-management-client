@@ -17,7 +17,7 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
 
   useEffect(() => {
     axios.post('/create-payment-intent', { price: usd }).then((res) => {
-      console.log(res.data.clientSecret);
+      // console.log(res.data.clientSecret);
       setClientSecret(res.data.clientSecret);
     });
   }, [axios, usd]);
@@ -41,11 +41,11 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
     });
 
     if (error) {
-      console.log(error);
+      // console.log(error);
       setErr(error.message);
       return;
     } else {
-      console.log('paymentMethod', paymentMethod);
+      // console.log('paymentMethod', paymentMethod);
       setErr('');
     }
 
@@ -61,10 +61,10 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
       });
 
     if (confirmError) {
-      console.log(confirmError);
+      // console.log(confirmError);
       setErr('');
     } else {
-      console.log('intent', paymentIntent);
+      // console.log('intent', paymentIntent);
       if (paymentIntent.status === 'succeeded') {
         const payment = {
           email: userData?.email,
@@ -79,7 +79,7 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
           id: userData._id,
           members,
         });
-        console.log(res.data.updateHR.modifiedCount);
+        // console.log(res.data.updateHR.modifiedCount);
         if (res.data.updateHR.modifiedCount) {
           toast.success('Success');
           refetch();
@@ -97,7 +97,7 @@ const CheckoutForm = ({ userData, usd, refetch }) => {
       }}
     >
       <h4 className=" text-stone-100 text-2xl font-semibold  uppercase">
-        Pay : ${usd}
+        Pay : ${usd ? usd : 0}
       </h4>
       <p className=" mb-10 text-white text-xl font-semibold">
         Package : {userData?.package}

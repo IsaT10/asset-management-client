@@ -3,12 +3,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
 import useAxios from '../../Hooks/useAxios';
-import { FaFacebook, FaGithub, FaEye, FaGoogle } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
 import GoogleLogIn from '../../components/GoogleLogIn';
 
 const SignupForEmployee = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, loading, setLoading, userProfileUpdate } = useAuth();
+  const { createUser, setLoading, userProfileUpdate } = useAuth();
 
   // const google = GoogleLogIn();
   //   const axios = useAxios();
@@ -23,20 +23,18 @@ const SignupForEmployee = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  //b9e7fd7e7e867150e5dff9ee884e9359
   const onSubmit = async (data) => {
-    console.log(data);
     const imageFile = { image: data.image[0] };
 
     const res = await axios.post(
-      'https://api.imgbb.com/1/upload?key=b9e7fd7e7e867150e5dff9ee884e9359',
+      `${import.meta.env.VITE_IMGBB_URL}`,
       imageFile,
       {
         headers: { 'Content-Type': 'multipart/form-data' },
       }
     );
 
-    console.log(res.data.data.display_url);
+    // console.log(res.data.data.display_url);
     const imageUrl = res.data.data.display_url;
 
     createUser(data.email, data.password).then((result) => {

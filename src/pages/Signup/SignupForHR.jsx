@@ -22,23 +22,21 @@ const SignupForHR = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  //b9e7fd7e7e867150e5dff9ee884e9359
   const onSubmit = async (data) => {
-    console.log(data);
     const imageFile = { image: data.companyLogo[0] };
     const profileImageFile = { image: data.image[0] };
     console.log(imageFile, profileImageFile);
     const members = Number(data?.package?.split(' ')[0]);
 
     const res = await axios.post(
-      'https://api.imgbb.com/1/upload?key=b9e7fd7e7e867150e5dff9ee884e9359',
+      `${import.meta.env.VITE_IMGBB_URL}`,
       imageFile,
       {
         headers: { 'Content-Type': 'multipart/form-data' },
       }
     );
     const profile = await axios.post(
-      'https://api.imgbb.com/1/upload?key=b9e7fd7e7e867150e5dff9ee884e9359',
+      `${import.meta.env.VITE_IMGBB_URL}`,
       profileImageFile,
       {
         headers: { 'Content-Type': 'multipart/form-data' },

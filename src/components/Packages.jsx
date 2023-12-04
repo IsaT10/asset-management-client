@@ -14,7 +14,7 @@ const Packages = () => {
       package: pack,
     });
 
-    console.log(res.data);
+    // console.log(res.data);
     navigate('/payment');
   };
 

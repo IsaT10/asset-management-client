@@ -4,6 +4,7 @@ const TopRequester = ({ requestData }) => {
 
   //     return acc;
   //   }, {});
+
   const topRequester = requestData?.reduce((acc, cur) => {
     const existingItems = acc.find((item) => item.name === cur.name);
 
@@ -26,7 +27,6 @@ const TopRequester = ({ requestData }) => {
     }
   });
 
-  console.log(topRequester);
   return (
     <div className="flex flex-wrap gap-6 items-center justify-around pb-20">
       {sort?.map((requester) => {

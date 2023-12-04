@@ -7,7 +7,7 @@ import useAllAssets from '../../Hooks/useAllAssets';
 import { Link } from 'react-router-dom';
 import HelmetTag from '../../components/HelmetTag';
 import { FaUserGear } from 'react-icons/fa6';
-import { RiAdminFill } from 'react-icons/ri';
+import { IoIosAddCircleOutline } from 'react-icons/io';
 
 const AddAnEmployee = () => {
   const { usersRefetch, isEmployee } = useUsers('');
@@ -25,7 +25,7 @@ const AddAnEmployee = () => {
       companyLogo: userData?.companyLogo,
     });
 
-    console.log(res.data);
+    // console.log(res.data);
     if (res.data.result.matchedCount) {
       usersRefetch();
       refetch();
@@ -91,60 +91,34 @@ const AddAnEmployee = () => {
       </div>
 
       <Title title="Available Members " />
+      <div className="flex flex-col gap-4 text-stone-200 ">
+        {isEmployee?.map((user, i) => (
+          <div className="flex items-center justify-between bg-stone-800 rounded-md px-4 md:px-8 py-4">
+            <input
+              type="checkbox"
+              // checked={isChecked}
+              // onChange={() => setIsChecked(!isChecked)}
+            />
+            <img
+              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 rounded-full object-cover bg-center"
+              src={user?.image}
+              alt=""
+            />
+            <p className="font-semibold">{user?.name}</p>
 
-      <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
-        <div className="overflow-x-auto rounded-t-md">
-          <table className="table rounded-t-md">
-            {/* head */}
-            <thead className="bg-stone-600 text-stone-100 ">
-              <tr className="">
-                <th>Checkbox</th>
-                <th>Image</th>
-                <th className="text-center">Name</th>
-                <th className="text-center">Member Type</th>
-                <th className="text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody className="">
-              {/* row 1 */}
+            <div>
+              <FaUserGear className="text-center " />
+            </div>
 
-              {isEmployee?.map((user, i) => (
-                <tr key={i} className="border-b-2 border-stone-200">
-                  <td className="w-32">
-                    <input
-                      type="checkbox"
-                      // checked={isChecked}
-                      // onChange={() => setIsChecked(!isChecked)}
-                    />
-                  </td>
-                  <td className=" font-semibold w-44 ">
-                    <img
-                      className="h-36 object-cover w-full"
-                      src={user?.image}
-                      alt=""
-                    />
-                  </td>
-                  <td className=" font-semibold text-stone-200 text-center">
-                    {user?.name}
-                  </td>
-                  <td className="text-stone-200 font-semibold  flex  justify-center mt-16">
-                    <FaUserGear className="text-center" />
-                  </td>
-
-                  <td className=" text-center">
-                    <button
-                      onClick={() => handleAddToTeam(user?._id)}
-                      disabled={!userData?.members}
-                      className="disabled:opacity-30 disabled:cursor-not-allowed font-semibold text-sm uppercase px-4 py-2 bg-darkBlue text-white rounded-sm"
-                    >
-                      Include in the team
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            <button
+              onClick={() => handleAddToTeam(user?._id)}
+              disabled={!userData?.members}
+              className="disabled:opacity-30 disabled:cursor-not-allowed uppercase px-4 py-2  text-white rounded-sm"
+            >
+              <IoIosAddCircleOutline className="text-3xl md:text-4xl hover:text-darkBlue duration-150 text-blue" />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

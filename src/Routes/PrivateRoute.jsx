@@ -5,12 +5,12 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
-  console.log(loading);
+  // console.log(loading);
 
   if (loading) {
     return (
       <div className="min-h-[calc(100vh-80px)] text-white flex flex-col items-center justify-center">
-        Loading...
+        <span className="loading loading-dots loading-lg"></span>
       </div>
     );
   }

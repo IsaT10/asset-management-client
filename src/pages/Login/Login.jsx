@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { useState } from 'react';
-import useAxios from '../../Hooks/useAxios';
-import { FaFacebook, FaGithub, FaEye, FaGoogle } from 'react-icons/fa';
+import { FaEye } from 'react-icons/fa';
 import GoogleLogIn from '../../components/GoogleLogIn';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,18 +20,15 @@ const Login = () => {
   } = useForm();
 
   const navigate = useNavigate();
-  const axios = useAxios();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
+  // const location = useLocation();
+  // const from = location.state?.from?.pathname || '/';
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log(errors);
-
     if (data?.email.length === 0) return;
     if (!data?.password) return;
     logIn(data?.email, data?.password)
       .then((result) => {
+        toast.success('Successfully Login');
         navigate('/');
       })
       .catch((err) => {
@@ -112,6 +109,9 @@ const Login = () => {
         Don't have account?
         <Link to="/signupAsEmployee" className="underline cursor-pointer ">
           Signup as Employee
+        </Link>{' '}
+        <Link to="/signupAsHR" className="underline cursor-pointer ">
+          or Signup as HR
         </Link>
       </p>
       <p className="text-blue mt-2 font-semibold text-sm">Or sign in with</p>

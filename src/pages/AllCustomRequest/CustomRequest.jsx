@@ -15,7 +15,7 @@ const CustomRequest = ({ reqData, refetch }) => {
 
       refetch();
     }
-    console.log(res.data);
+    // console.log(res.data);
   };
 
   const handleReject = async (id) => {
@@ -27,7 +27,7 @@ const CustomRequest = ({ reqData, refetch }) => {
       toast.warning('Reject request');
       refetch();
     }
-    console.log(res.data);
+    // console.log(res.data);
   };
 
   return (

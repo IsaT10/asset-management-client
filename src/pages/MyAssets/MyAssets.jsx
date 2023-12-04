@@ -74,27 +74,33 @@ const MyAssets = () => {
               </div>
             </div>
           </div>
-          <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
-            <div className="overflow-x-auto rounded-t-md">
-              <table className="table rounded-t-md">
-                {/* head */}
-                <thead className="bg-stone-600 text-stone-100 ">
-                  <tr className="">
-                    <th>Asset Name</th>
-                    <th>Type</th>
-                    <th>Request Date</th>
-                    <th>Approval Date</th>
-                    <th>Request Status</th>
-                    <th className="text-center">Action</th>
-                  </tr>
-                </thead>
+          {requestData?.length ? (
+            <>
+              <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
+                <div className="overflow-x-auto rounded-t-md">
+                  <table className="table rounded-t-md">
+                    {/* head */}
+                    <thead className="bg-stone-600 text-stone-100 ">
+                      <tr className="">
+                        <th>Asset Name</th>
+                        <th>Type</th>
+                        <th>Request Date</th>
+                        <th>Approval Date</th>
+                        <th>Request Status</th>
+                        <th className="text-center">Action</th>
+                      </tr>
+                    </thead>
 
-                {requestData?.map((reqData, i) => (
-                  <Asset key={i} reqData={reqData} refetch={refetch} />
-                ))}
-              </table>
-            </div>
-          </div>
+                    {requestData?.map((reqData, i) => (
+                      <Asset key={i} reqData={reqData} refetch={refetch} />
+                    ))}
+                  </table>
+                </div>
+              </div>
+            </>
+          ) : (
+            <NotFoundData className="h-[50vh]">No Data Available</NotFoundData>
+          )}
         </>
       )}
     </div>

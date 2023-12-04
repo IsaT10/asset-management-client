@@ -9,12 +9,10 @@ import Loader from '../../components/Loader';
 import useAuth from '../../Hooks/useAuth';
 
 const Home = () => {
-  const navigation = useNavigation();
-  console.log(navigation);
   const { userData, isLoading } = useHR();
-  console.log(userData, 'userrrrrrrrrr');
-  console.log(isLoading);
-  const { user } = useAuth();
+  // console.log(userData, 'userrrrrrrrrr');
+  // console.log(isLoading);
+  const { user, loading } = useAuth();
 
   if (isLoading && user) {
     return <Loader className="h-[80vh]" />;

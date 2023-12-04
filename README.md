@@ -1,4 +1,4 @@
-# 5 project feature
+# Some project feature
 
 - Users can register and log in as employees or HR/Admin.Based on their roles navigation bar is different for HR/Admin and normal employees , relevant pages and functionalities .
 

@@ -28,15 +28,19 @@ const TopRequester = ({ requestData }) => {
   });
 
   return (
-    <div className="flex flex-wrap gap-6 items-center justify-around pb-20">
-      {sort?.map((requester) => {
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-between gap-5 gap-y-10 items-center ">
+      {sort?.map((requester, i) => {
         return (
-          <div className="border-2 border-blue min-h-[130px] flex flex-col justify-center rounded-sm px-6 py-5 w-max text-stone-200">
-            <h3 className="text-lg font-semibold ">
-              <span className="font-normal text-lg">Name</span> :{' '}
-              {requester?.name}
-            </h3>
-            <p>Total request : {requester?.requestedTime}</p>
+          <div
+            key={i}
+            className="bg-stone-200 rounded-md w-[300px] mx-auto text-stone-800 gap-3  px-6 py-6 flex flex-col items-start"
+          >
+            <h3 className="text-xl font-semibold">Rank : {i + 1}</h3>
+            <h3 className="text-xl font-semibold">Name : {requester?.name}</h3>
+
+            <p className="font-semibold">
+              Total Request : {requester?.requestedTime}
+            </p>
           </div>
         );
       })}

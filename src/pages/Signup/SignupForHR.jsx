@@ -25,7 +25,7 @@ const SignupForHR = () => {
   const onSubmit = async (data) => {
     const imageFile = { image: data.companyLogo[0] };
     const profileImageFile = { image: data.image[0] };
-    console.log(imageFile, profileImageFile);
+    // console.log(imageFile, profileImageFile);
     const members = Number(data?.package?.split(' ')[0]);
 
     const res = await axios.post(
@@ -43,8 +43,8 @@ const SignupForHR = () => {
       }
     );
 
-    console.log(res.data.data.display_url);
-    console.log(profile.data.data.display_url);
+    // console.log(res.data.data.display_url);
+    // console.log(profile.data.data.display_url);
     const imageUrl = res.data.data.display_url;
     const profileImageUrl = profile.data.data.display_url;
 

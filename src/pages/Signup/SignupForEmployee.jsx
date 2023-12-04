@@ -5,6 +5,7 @@ import { useState } from 'react';
 import useAxios from '../../Hooks/useAxios';
 import { FaEye } from 'react-icons/fa';
 import GoogleLogIn from '../../components/GoogleLogIn';
+import { toast } from 'react-toastify';
 
 const SignupForEmployee = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -51,7 +52,7 @@ const SignupForEmployee = () => {
           axios.post('/users', userInfo).then((res) => {
             if (res.data.acknowledged) {
               setLoading(false);
-              //   toast.success('Successfully signup');
+              toast.success('Successfully signup');
               navigate(from, { replace: true });
             }
           });

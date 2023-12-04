@@ -1,76 +1,64 @@
-import { toast } from 'react-toastify';
-import useAxios from '../../Hooks/useAxios';
 import useHR from '../../Hooks/useHR';
 import useUsers from '../../Hooks/useUsers';
 import Title from '../../components/Title';
 import useAllAssets from '../../Hooks/useAllAssets';
 import { Link } from 'react-router-dom';
 import HelmetTag from '../../components/HelmetTag';
-import { FaUserGear } from 'react-icons/fa6';
-import { IoIosAddCircleOutline } from 'react-icons/io';
+import SingleEmpolyee from './SingleEmpolyee';
+import { useState } from 'react';
+import useAxios from '../../Hooks/useAxios';
+import { toast } from 'react-toastify';
 
 const AddAnEmployee = () => {
+  const [selectedUsers, setSelectedUsers] = useState([]);
   const { usersRefetch, isEmployee } = useUsers('');
   const { allAssets } = useAllAssets('', '', '', '', '');
-  const axios = useAxios();
   const { userData, refetch } = useHR();
+  const axios = useAxios();
 
-  // console.log(userData);
+  const handleCheckChange = (id) => {
+    setSelectedUsers((previousUsers) => {
+      const isSelected = previousUsers.includes(id);
 
-  const handleAddToTeam = async (id) => {
-    const res = await axios.patch(`/users/${id}`, {
+      if (isSelected) {
+        return previousUsers.filter((i) => i !== id);
+      }
+
+      if (previousUsers.length === userData?.members) {
+        toast.warning('YOu have to increse your package limit');
+        return previousUsers;
+      }
+
+      return [...previousUsers, id];
+    });
+  };
+
+  const handleAddTeamMembers = async () => {
+    if (userData?.members === selectedUsers?.length) {
+    }
+    const res = await axios.patch(`/users/ids`, {
+      selectedUsers,
       companyName: userData.companyName,
       HR_id: userData?._id,
-      members: userData?.members - 1,
+      members: userData?.members - selectedUsers?.length,
       companyLogo: userData?.companyLogo,
     });
 
-    // console.log(res.data);
-    if (res.data.result.matchedCount) {
+    if (res.data.result.modifiedCount) {
       usersRefetch();
       refetch();
       toast.success('Add to the team');
+      setSelectedUsers([]);
     }
-
-    // const { data } = await axios.patch(`/users/${userData._id}`, {
-    //   members: userData?.members - 1,
-    // });
-
-    // console.log(data);
-    // console.log(res.data);
   };
+
+  // console.log(userData);
+
   return (
     <div className="">
       <HelmetTag title="Overview " />
 
-      {/* <Packages /> */}
       <Title title="Overview" />
-      {/* <div className="  bg-stone-950 mx-4 md:mx-auto px-2 py-6 md:p-10 ">
-        <div className="overflow-x-auto rounded-t-md">
-          <table className="table rounded-t-md">
-            <thead className="bg-stone-600 text-stone-100 ">
-              <tr className="">
-                <th>Product Name</th>
-                <th>Type</th>
-                <th className="">Quantity</th>
-              </tr>
-            </thead>
-            <tbody className=" ">
-
-              {allAssets?.map((asset, i) => (
-                <tr
-                  key={i}
-                  className="border-b-2 border-stone-200 text-stone-200"
-                >
-                  <td className="">{asset?.productName}</td>
-                  <td className="">{asset?.type}</td>
-                  <td className=" ">{asset?.quantity}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
 
       <div className="flex flex-col items-start gap-5">
         <h3 className="text-xl font-semibold text-stone-200">
@@ -91,33 +79,34 @@ const AddAnEmployee = () => {
       </div>
 
       <Title title="Available Members " />
+      {selectedUsers?.length ? (
+        <div className="flex justify-between items-center -mt-8 mb-5">
+          <h4 className="text-stone-200 text-2xl font-semibold">
+            Selected {selectedUsers?.length > 1 ? 'Employees' : 'Employee'} :{' '}
+            {selectedUsers?.length}
+          </h4>
+          <button
+            onClick={handleAddTeamMembers}
+            className="bg-blue text-stone-200 font-semibold uppercase px-4 py-1.5 rounded-sm"
+          >
+            Add To Team
+          </button>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="flex flex-col gap-4 text-stone-200 ">
         {isEmployee?.map((user, i) => (
-          <div className="flex items-center justify-between bg-stone-800 rounded-md px-4 md:px-8 py-4">
-            <input
-              type="checkbox"
-              // checked={isChecked}
-              // onChange={() => setIsChecked(!isChecked)}
-            />
-            <img
-              className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 rounded-full object-cover bg-center"
-              src={user?.image}
-              alt=""
-            />
-            <p className="font-semibold">{user?.name}</p>
-
-            <div>
-              <FaUserGear className="text-center " />
-            </div>
-
-            <button
-              onClick={() => handleAddToTeam(user?._id)}
-              disabled={!userData?.members}
-              className="disabled:opacity-30 disabled:cursor-not-allowed uppercase px-4 py-2  text-white rounded-sm"
-            >
-              <IoIosAddCircleOutline className="text-3xl md:text-4xl hover:text-darkBlue duration-150 text-blue" />
-            </button>
-          </div>
+          <SingleEmpolyee
+            user={user}
+            key={i}
+            usersRefetch={usersRefetch}
+            userData={userData}
+            refetch={refetch}
+            selectedUsers={selectedUsers}
+            setSelectedUsers={setSelectedUsers}
+            handleCheckChange={handleCheckChange}
+          />
         ))}
       </div>
     </div>

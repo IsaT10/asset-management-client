@@ -36,7 +36,7 @@ const RequestModal = ({ setShowModal, list: { productName, type } }) => {
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            className="textarea text-stone-200 textarea-bordered w-3/4"
+            className="textarea text-stone-800 textarea-bordered w-3/4"
             placeholder="Additional Note"
           ></textarea>
 

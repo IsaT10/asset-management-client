@@ -156,47 +156,6 @@ const Nav = () => {
                 )}
               </>
             )}
-            {/* <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content -left-20 mt-3 p-2 shadow  w-36 mr-10 z-40 text-white rounded-md  bg-blue"
-            >
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/assetsList">Asset List</Link>
-              </li>
-              <li>
-                <Link to="/addAnAsset">Add Asset</Link>
-              </li>
-              <li>
-                <Link to="/allRequest">All Requests</Link>
-              </li>
-              <li>
-                <Link to="/allCustomRequest">Custom Requests</Link>
-              </li>
-              <li>
-                <Link to="/addEmployee">Add an Employee</Link>
-              </li>
-              <li>
-                <Link to="/myEmployee">My Employee</Link>
-              </li>
-
-              {user?.email ? (
-                <li>
-                  <Link onClick={handleLogout}>Logout</Link>
-                </li>
-              ) : (
-                <>
-                  <li>
-                    <Link to="/signup">Sign up</Link>
-                  </li>
-                  <li>
-                    <Link to="/login">login</Link>
-                  </li>
-                </>
-              )}
-            </ul> */}
           </div>
         </div>
         <div className=" hidden lg:flex relative">
@@ -259,21 +218,6 @@ const Nav = () => {
             <>
               {userData?.role === 'HR' ? (
                 <ul className="flex gap-3 items-center">
-                  {/* <li>
-                    <NavLink
-                      to="/"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? 'pending'
-                          : isActive
-                          ? 'text-blue  tracking-tight font-semibold   '
-                          : '  hover:text-blue duration-100 tracking-tight font-semibold   '
-                      }
-                    >
-                      Home
-                    </NavLink>
-                  </li> */}
-
                   <li>
                     <NavLink
                       to="/"
@@ -411,7 +355,7 @@ const Nav = () => {
                           className="avatar cursor-pointer "
                         >
                           <div className="w-14 rounded-full">
-                            <img src={user.photoURL} alt="" />
+                            <img src={userData?.image} alt="" />
                           </div>
                         </div>
                       ) : (
@@ -438,52 +382,6 @@ const Nav = () => {
                       </button>
                     </div>
                   )}
-
-                  {/* {user?.email ? (
-              <>
-                <button
-                  className="bg-transparent border-2 text-sm md:text-base border-stone-900  rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5 text-stone font-semibold"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-
-                {user?.photoURL ? (
-                  <div className="avatar">
-                    <div className="w-10 rounded-full">
-                      <img src={user.photoURL} alt="" />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="w-10 rounded-full bg-transparent">
-                    <img src={avatar} alt="asdsa" />
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                <li>
-                  <NavLink
-                    to="/signup"
-                    className={({ isActive, isPending }) =>
-                      isPending
-                        ? 'pending'
-                        : isActive
-                        ? ' text-blue  tracking-tight font-semibold   font-semibold'
-                        : 'font-semibold  hover:text-blue duration-100 tracking-tight font-semibold  '
-                    }
-                  >
-                    Sign up
-                  </NavLink>
-                </li>
-                <Link
-                  to="/login"
-                  className="bg-transparent border-2 text-sm md:text-base border-stone-900 rounded-sm px-3 py-1.5 sm:px-3 sm:py-1.5 md:px-4 md:py-1.5.5  font-semibold"
-                >
-                  Login
-                </Link>
-              </>
-            )} */}
                 </ul>
               ) : (
                 <ul className="flex gap-4 items-center">

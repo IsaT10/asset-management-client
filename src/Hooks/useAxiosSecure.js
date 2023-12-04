@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const instance = axios.create({
   baseURL: 'https://asset-management-server-rho.vercel.app',
+  // baseURL: 'http://localhost:5000',
 });
 
 const useAxiosSecure = () => {

@@ -47,7 +47,7 @@ const Modal = ({
       const { data } = await axios.patch(`/custom-request/${_id}`, updateData);
 
       if (data.acknowledged) {
-        alert('update oice');
+        toast.success('Request Update');
         refetch();
         setShowModal(false);
         // toast.success(`${data.name} menu is updated`);

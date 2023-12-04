@@ -38,7 +38,7 @@ const AllRequest = () => {
       <Title title="All Request" />
       <div className="flex flex-col gap-3 items-start">
         <label className="text-stone-300 text-sm font-semibold">
-          Search By Name & Email
+          Search By Employee Name & Email
         </label>
         <input
           type="text"

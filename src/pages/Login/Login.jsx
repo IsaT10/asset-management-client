@@ -55,7 +55,7 @@ const Login = () => {
               required: true,
               pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             })}
-            defaultValue="rakib@gmail.com"
+            // defaultValue="rakib@gmail.com"
             required
             placeholder="Type here"
           />
@@ -79,7 +79,7 @@ const Login = () => {
               pattern:
                 /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*[A-Z])(?=.*\d).+$/,
             })}
-            defaultValue="aA1!11"
+            // defaultValue="aA1!11"
           />
           {errors.password?.type === 'minLength' && (
             <span className="text-red-600 font-semibold -mt-1.5 ml-px text-sm tracking-wide">

@@ -1,16 +1,15 @@
 import Title from '../../components/Title';
-import { Link } from 'react-router-dom';
-import SingleItem from './SingleItem';
 import useCustomRequestData from '../../Hooks/useCustomRequestData';
 import useRequestData from '../../Hooks/useRequestData';
-import PendingRequest from './Section/PendingRequest';
-import { date } from '../../utils/date';
 import MonthlyRequest from './Section/MonthlyRequest';
 import useHR from '../../Hooks/useHR';
 import NotFoundData from '../../components/NotFoundData';
 import RequestedItems from '../HrHome/Section/RequestedItems';
 import HelmetTag from '../../components/HelmetTag';
 import Loader from '../../components/Loader';
+import PendingCard from '../../components/PendingCard';
+import CustomRequestCard from '../../components/CustomRequestCard';
+import PendingRequests from './Section/PendingRequests';
 
 const EmployeeHome = () => {
   const { customRequestData, refetch, customReqLoading } =
@@ -40,7 +39,7 @@ const EmployeeHome = () => {
     }
   });
 
-  // console.log(recentRequest);
+  console.log(recentRequest);
 
   // const arr = [];
   // const frequnetly = requestData.filter((item) => {
@@ -91,48 +90,24 @@ const EmployeeHome = () => {
               ) : (
                 <>
                   <Title title="Custom Requests" />
-                  <div className="  bg-stone-950 mx-4 md:mx-auto">
-                    <div className="overflow-x-auto rounded-t-md">
-                      <table className="table rounded-t-md">
-                        {/* head */}
-                        <thead className="bg-stone-600 text-stone-100 ">
-                          <tr className="">
-                            <th>Asset Name</th>
-                            <th>Price</th>
-                            <th>Asset Image</th>
-                            <th>Asset Type</th>
-                            <th>Status</th>
-                            <th className="text-center">Action</th>
-                          </tr>
-                        </thead>
-                        {customRequestData?.map((reqData, i) => (
-                          <SingleItem
-                            reqData={reqData}
-                            key={i}
-                            refetch={refetch}
-                          />
-                        ))}
-                      </table>
-                    </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+                    {customRequestData?.map((data, i) => (
+                      <CustomRequestCard data={data} key={i} />
+                    ))}
                   </div>
-                  {/* <div className="max-w-7xl xl:mx-auto mx-2 my-8 border-t border-b border-stone-400">
-                <ul className="flex flex-col divide-y divide-stone-400">
-                  {customRequestData.map((req, index) => (
-                    <li key={index}>
-                      <SingleItem req={req} />
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
                 </>
               )}
 
               <Title title="Pending requests" />
-              <PendingRequest />
+              <PendingRequests />
 
               <Title title="Monthly Requests" />
               {monthlyRequest?.length ? (
-                <MonthlyRequest monthlyRequest={recentRequest} />
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
+                  {monthlyRequest?.map((data, i) => (
+                    <MonthlyRequest data={data} key={i} />
+                  ))}
+                </div>
               ) : (
                 <NotFoundData className="h-[40vh]">
                   No Data Available!

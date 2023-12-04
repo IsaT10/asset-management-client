@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const Piechart = ({ requestData }) => {
   const type = requestData.reduce((acc, cur) => {
@@ -8,7 +8,7 @@ const Piechart = ({ requestData }) => {
     return acc;
   }, {});
 
-  const total = type.Returnable + type['Non-returnable'];
+  const total = type.Returnable || 0 + type['Non-returnable'] || 0;
 
   const data = [
     {
@@ -22,6 +22,7 @@ const Piechart = ({ requestData }) => {
       color: '#014F7F',
     },
   ];
+
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,

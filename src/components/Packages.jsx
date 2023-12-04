@@ -14,8 +14,10 @@ const Packages = () => {
       package: pack,
     });
 
-    // console.log(res.data);
-    navigate('/payment');
+    console.log(res.data);
+    if (res?.data?.result?.modifiedCount) {
+      navigate('/payment');
+    }
   };
 
   const handleStarter = () => {
@@ -103,7 +105,7 @@ const Packages = () => {
             </div>
             <div className="p-5 flex flex-col gap-3 h-[100px] justify-center items-center  bg-blue-700 text-white rounded-b">
               <p className=" text-2xl tracking-wides font-semibold">
-                5 members
+                10 members
               </p>
             </div>
             <div className="text-center">

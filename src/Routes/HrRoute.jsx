@@ -6,11 +6,11 @@ const HrRoute = ({ children }) => {
   const { userData, isLoading } = useHR();
   const { user, loading } = useAuth();
   const location = useLocation();
-  console.log(userData.payment);
-  console.log('user', user);
+  // console.log(userData.payment);
+  // console.log('user', user);
 
-  console.log(isLoading, loading);
-  console.log(userData.role);
+  // console.log(isLoading, loading);
+  // console.log(userData.role);
 
   if (loading) {
     return (

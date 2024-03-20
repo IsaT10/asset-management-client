@@ -60,6 +60,7 @@ const SignupForHR = () => {
             companyLogo: imageUrl,
             companyName: data.companyName,
             dateOfBirth: data.date,
+
             members,
             payment: 'require',
           };

@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
 import GoogleLogIn from '../../components/GoogleLogIn';
 import { toast } from 'react-toastify';
+import DemoHR from '../../components/DemoHR';
+import DemoEmployee from '../../components/DemoEmployee';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -105,13 +107,13 @@ const Login = () => {
           Login
         </button>
       </form>
-      <p className="mt-4 text-blue font-semibold text-sm">
+      <p className="mt-4 text-white font-semibold text-sm">
         Don't have account?
-        <Link to="/signupAsEmployee" className="underline cursor-pointer ">
-          Signup as Employee
+        <Link to="/signupAsEmployee" className=" cursor-pointer e">
+          <span className="text-blue">Signup </span> as Employee
         </Link>{' '}
-        <Link to="/signupAsHR" className="underline cursor-pointer ">
-          or Signup as HR
+        <Link to="/signupAsHR" className=" cursor-pointer ">
+          or <span className="text-blue">Signup </span> as HR
         </Link>
       </p>
       <p className="text-blue mt-2 font-semibold text-sm">Or sign in with</p>
@@ -126,6 +128,10 @@ const Login = () => {
                 <FaGoogle className="cursor-pointer" />
               </div> */}
         <GoogleLogIn />
+      </div>
+      <div className="flex gap-10">
+        <DemoHR />
+        <DemoEmployee />
       </div>
     </div>
   );
